@@ -1,0 +1,273 @@
+- id: '1687903120479'
+  alias: 'Button 1: Hold'
+  description: Turn off all devices in Office
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: cb29a302c231889a9230b2721ef293c6
+    type: action
+    subtype: 1_hold
+    discovery_id: 0x847127fffee7a266 action_1_hold
+  condition: []
+  action:
+  - device_id: af024292ca2322da80be1da7d93f40a9
+    domain: climate
+    entity_id: climate.mitsubishi_electric_office
+    type: set_hvac_mode
+    hvac_mode: 'off'
+  - type: turn_off
+    device_id: fe21a17957d306d103a331a934918d42
+    entity_id: switch.office_light_switch
+    domain: switch
+  - type: turn_off
+    device_id: 6ee7f9569927e68779688453712a062f
+    entity_id: light.dream_color_strip_neon_light
+    domain: light
+  - type: turn_off
+    device_id: 2c21cd3b125bca6dc285096fb7076ef8
+    entity_id: light.rgbcw_dream_color_strip_light
+    domain: light
+  - type: turn_off
+    device_id: 3753e0be1e01e049fde694b76e1063da
+    entity_id: switch.nvpd_5141_socket_3
+    domain: switch
+  - type: turn_off
+    device_id: 3753e0be1e01e049fde694b76e1063da
+    entity_id: switch.nvpd_5141_socket_5
+    domain: switch
+  - type: turn_off
+    device_id: dd88d964cd851e26068f9f8944504235
+    entity_id: switch.zigbee_billy_bookcase_breaker_switch_1
+    domain: switch
+  - type: turn_off
+    device_id: 82e99a8010d7ad3f128e66194e06b0f0
+    entity_id: fan.zhimi_za5_beba_fan
+    domain: fan
+  mode: single
+- id: '1687986170391'
+  alias: 'Button 1: Single Click'
+  description: Toggle Office Light Switch
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: cb29a302c231889a9230b2721ef293c6
+    type: action
+    subtype: 1_single
+    discovery_id: 0x847127fffee7a266 action_1_single
+  condition: []
+  action:
+  - type: toggle
+    device_id: fe21a17957d306d103a331a934918d42
+    entity_id: switch.office_light_switch
+    domain: switch
+  mode: single
+- id: '1687986581799'
+  alias: 'Button 1: Double Click'
+  description: Turn on devices in Office
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: cb29a302c231889a9230b2721ef293c6
+    type: action
+    subtype: 1_double
+    discovery_id: 0x847127fffee7a266 action_1_double
+  condition: []
+  action:
+  - device_id: af024292ca2322da80be1da7d93f40a9
+    domain: climate
+    entity_id: climate.mitsubishi_electric_office
+    type: set_hvac_mode
+    hvac_mode: cool
+  - type: turn_on
+    device_id: fe21a17957d306d103a331a934918d42
+    entity_id: switch.office_light_switch
+    domain: switch
+  - type: turn_on
+    device_id: 3753e0be1e01e049fde694b76e1063da
+    entity_id: switch.nvpd_5141_socket_5
+    domain: switch
+  - type: turn_on
+    device_id: 6ee7f9569927e68779688453712a062f
+    entity_id: light.dream_color_strip_neon_light
+    domain: light
+  - type: turn_on
+    device_id: 2c21cd3b125bca6dc285096fb7076ef8
+    entity_id: light.rgbcw_dream_color_strip_light
+    domain: light
+  mode: single
+- id: '1687987105333'
+  alias: 'Button 2: Single Click'
+  description: Toggle Color Strip Light
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: cb29a302c231889a9230b2721ef293c6
+    type: action
+    subtype: 2_single
+    discovery_id: 0x847127fffee7a266 action_2_single
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: device
+        type: is_off
+        device_id: 3753e0be1e01e049fde694b76e1063da
+        entity_id: switch.nvpd_5141_socket_5
+        domain: switch
+      sequence:
+      - type: turn_on
+        device_id: 3753e0be1e01e049fde694b76e1063da
+        entity_id: switch.nvpd_5141_socket_5
+        domain: switch
+      - type: turn_on
+        device_id: 2c21cd3b125bca6dc285096fb7076ef8
+        entity_id: light.rgbcw_dream_color_strip_light
+        domain: light
+      - type: turn_on
+        device_id: 6ee7f9569927e68779688453712a062f
+        entity_id: light.dream_color_strip_neon_light
+        domain: light
+    - conditions:
+      - condition: device
+        type: is_on
+        device_id: 3753e0be1e01e049fde694b76e1063da
+        entity_id: switch.nvpd_5141_socket_5
+        domain: switch
+      sequence:
+      - type: turn_off
+        device_id: 3753e0be1e01e049fde694b76e1063da
+        entity_id: switch.nvpd_5141_socket_5
+        domain: switch
+      - type: turn_off
+        device_id: 2c21cd3b125bca6dc285096fb7076ef8
+        entity_id: light.rgbcw_dream_color_strip_light
+        domain: light
+      - type: turn_off
+        device_id: 6ee7f9569927e68779688453712a062f
+        entity_id: light.dream_color_strip_neon_light
+        domain: light
+  mode: single
+- id: '1688032614649'
+  alias: Toggle Automation Micro Switch
+  description: ''
+  trigger:
+  - type: temperature
+    platform: device
+    device_id: d38f58bcea4cc4ef10c6ecadc34ec3f7
+    entity_id: sensor.temperature_and_humidity_sensor_temperature
+    domain: sensor
+    above: 0
+    below: 100
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - type: is_temperature
+        condition: device
+        device_id: d38f58bcea4cc4ef10c6ecadc34ec3f7
+        entity_id: sensor.temperature_and_humidity_sensor_temperature
+        domain: sensor
+        above: 35
+        below: 100
+      sequence:
+      - type: turn_on
+        device_id: 2db33914b4942e53a9c190cb1bc053c3
+        entity_id: switch.sonoff_1001d9bbae_1
+        domain: switch
+    - conditions:
+      - type: is_temperature
+        condition: device
+        device_id: d38f58bcea4cc4ef10c6ecadc34ec3f7
+        entity_id: sensor.temperature_and_humidity_sensor_temperature
+        domain: sensor
+        below: 30
+        above: 0
+      sequence:
+      - type: turn_off
+        device_id: 2db33914b4942e53a9c190cb1bc053c3
+        entity_id: switch.sonoff_1001d9bbae_1
+        domain: switch
+  mode: single
+- id: '1688047602778'
+  alias: 'Button 3: Double Click'
+  description: Turn Off Some Devices for Movie Mode
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: cb29a302c231889a9230b2721ef293c6
+    type: action
+    subtype: 3_double
+    discovery_id: 0x847127fffee7a266 action_3_double
+  condition: []
+  action:
+  - type: turn_off
+    device_id: fe21a17957d306d103a331a934918d42
+    entity_id: switch.office_light_switch
+    domain: switch
+  - type: turn_off
+    device_id: 2c21cd3b125bca6dc285096fb7076ef8
+    entity_id: light.rgbcw_dream_color_strip_light
+    domain: light
+  - type: turn_off
+    device_id: 6ee7f9569927e68779688453712a062f
+    entity_id: light.dream_color_strip_neon_light
+    domain: light
+  - type: turn_off
+    device_id: 3753e0be1e01e049fde694b76e1063da
+    entity_id: switch.nvpd_5141_socket_5
+    domain: switch
+  - type: turn_off
+    device_id: 3753e0be1e01e049fde694b76e1063da
+    entity_id: switch.nvpd_5141_socket_3
+    domain: switch
+  - type: turn_off
+    device_id: c46fb495627262b868b9e09950936262
+    entity_id: switch.billy_bookcase_breaker_switch
+    domain: switch
+  mode: single
+- id: '1688047956859'
+  alias: 'Button 4: Double Click'
+  description: Toggle Buddha Light
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: cb29a302c231889a9230b2721ef293c6
+    type: action
+    subtype: 4_double
+    discovery_id: 0x847127fffee7a266 action_4_double
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: or
+        conditions:
+        - condition: device
+          type: is_off
+          device_id: 3753e0be1e01e049fde694b76e1063da
+          entity_id: switch.nvpd_5141_socket_3
+          domain: switch
+        - condition: device
+          type: is_off
+          device_id: c46fb495627262b868b9e09950936262
+          entity_id: switch.billy_bookcase_breaker_switch
+          domain: switch
+      sequence:
+      - type: turn_on
+        device_id: 3753e0be1e01e049fde694b76e1063da
+        entity_id: switch.nvpd_5141_socket_3
+        domain: switch
+      - type: turn_on
+        device_id: c46fb495627262b868b9e09950936262
+        entity_id: switch.billy_bookcase_breaker_switch
+        domain: switch
+    - conditions: []
+      sequence:
+      - type: turn_off
+        device_id: 3753e0be1e01e049fde694b76e1063da
+        entity_id: switch.nvpd_5141_socket_3
+        domain: switch
+      - type: turn_off
+        device_id: c46fb495627262b868b9e09950936262
+        entity_id: switch.billy_bookcase_breaker_switch
+        domain: switch
+  mode: single

@@ -1,0 +1,14 @@
+/*
+/*/
+!lovelace
+!themes
+!/www/
+/www/*
+!www/fonts
+!.gitignore
+!automations.yaml
+!configuration.yaml
+!README.md
+!scenes.yaml
+!scripts.yaml
+!secrets.example.yaml

@@ -1,0 +1,10 @@
+title: My Rooms
+views:
+  # View tab title.
+  - title: Example
+    cards:
+      # The markdown card will render markdown text.
+      - type: markdown
+        title: Rooms
+        content: >
+          Welcome to your **rooms**.

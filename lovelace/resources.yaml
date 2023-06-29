@@ -1,0 +1,6 @@
+# LOVELACE RESOURCES
+
+- url: /hacsfiles/button-card/button-card.js
+  type: module
+- url: /local/fonts/fonts.css
+  type: css

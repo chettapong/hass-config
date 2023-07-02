@@ -1,4 +1,6 @@
 title: My Awesome Home
+kiosk_mode:
+  hide_header: true
 views:
   # View tab title.
   - title: Example
@@ -7,4 +9,4 @@ views:
       - type: markdown
         title: Dashboard
         content: >
-          Welcome to your **dashboard**.
+          xWelcome to your **dashboard**.

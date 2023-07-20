@@ -1,0 +1,8 @@
+title: Dashboard
+
+views:
+  - !include ../views/summary.yaml
+
+# See https://github.com/NemesisRE/kiosk-mode#config-options
+kiosk_mode:
+  hide_header: true

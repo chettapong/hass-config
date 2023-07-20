@@ -9,7 +9,15 @@ homeassistant:
   currency: THB
   country: TH
   time_zone: "Asia/Bangkok"
-  external_url: "https://sweethomejp.duckdns.org:9950"
+  external_url: !secret homeassistant_external_url
+  packages: !include_dir_named packages
+
+# HTTP
+# See https://www.home-assistant.io/integrations/http/#configuration-variables
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 127.0.0.1
 
 # Loads default set of integrations. Do not remove.
 default_config:
@@ -38,7 +46,7 @@ lovelace:
       title: Dashboard
       icon: mdi:script
       show_in_sidebar: true
-      filename: lovelace/ui/dashboard.yaml
+      filename: lovelace/dashboards/dashboard.yaml
 
     # Rooms + Areas
     # lovelace-rooms:
@@ -47,4 +55,11 @@ lovelace:
     #   icon: mdi:sofa
     #   show_in_sidebar: true
     #   require_admin: false
-    #   filename: lovelace/ui/rooms.yaml
+    #   filename: lovelace/dashboards/rooms.yaml
+
+# AirCloud Home Assistant Integration
+air_cloud:
+  email: !secret air_cloud_email
+  password: !secret air_cloud_password
+climate:
+  - platform: air_cloud

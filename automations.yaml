@@ -274,3 +274,40 @@
         entity_id: switch.billy_bookcase_breaker_switch
         domain: switch
   mode: single
+- id: '1691045616398'
+  alias: Link Multiple Switches - Stair
+  description: ''
+  use_blueprint:
+    path: aderusha/link_multiple_switches.yaml
+    input:
+      switches:
+      - switch.stair_switch
+      - switch.kitchen_stair_backdoor_left
+- id: '1691054901681'
+  alias: Link Multiple Switches - Garage
+  description: ''
+  use_blueprint:
+    path: aderusha/link_multiple_switches.yaml
+    input:
+      switches:
+      - switch.garage_switch_l1
+      - switch.front_house_switch_center
+- id: '1691055072971'
+  alias: Link Multiple Switches - Side Yard
+  description: ''
+  use_blueprint:
+    path: aderusha/link_multiple_switches.yaml
+    input:
+      switches:
+      - switch.side_yard_light_switch_1_433_switch_1
+      - switch.garage_switch_l2
+- id: '1691071975727'
+  alias: NSPanel Configuration
+  description: ''
+  use_blueprint:
+    path: Blackymas/nspanel_blueprint.yaml
+    input:
+      nspanel_name: a1ecf0ef1b5813c1b25bced6ee215388
+      date_format: '%A, %d/%m'
+      weather_entity: weather.forecast_sweet_home_jp
+      climate: climate.mitsubishi_electric_office

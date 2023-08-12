@@ -1,5 +1,6 @@
 /*
 /*/
+!config/blueprints/*/chettapong
 !esphome
 !lovelace
 !themes
@@ -9,6 +10,7 @@
 !.gitignore
 !automations.yaml
 !configuration.yaml
+!hass-config.code-workspace
 !README.md
 !scenes.yaml
 !scripts.yaml

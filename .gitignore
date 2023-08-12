@@ -1,11 +1,9 @@
 /*
 /*/
-!config/blueprints/*/chettapong
+!blueprints/*/chettapong
 !esphome
 !lovelace
 !themes
-!/www/
-/www/*
 !www/fonts
 !.gitignore
 !automations.yaml

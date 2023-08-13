@@ -1,5 +1,5 @@
 - id: '1687903120479'
-  alias: 'Button 1: Hold'
+  alias: 'Wireless Scene Switch Button 1: Hold'
   description: Turn off all devices in Office
   trigger:
   - platform: device
@@ -10,59 +10,13 @@
     discovery_id: 0x847127fffee7a266 action_1_hold
   condition: []
   action:
-  - device_id: af024292ca2322da80be1da7d93f40a9
-    domain: climate
-    entity_id: climate.mitsubishi_electric_office
-    type: set_hvac_mode
-    hvac_mode: 'off'
-  - type: turn_off
-    device_id: fe21a17957d306d103a331a934918d42
-    entity_id: switch.office_light_switch
-    domain: switch
-  - type: turn_off
-    device_id: 6ee7f9569927e68779688453712a062f
-    entity_id: light.dream_color_strip_neon_light
-    domain: light
-  - type: turn_off
-    device_id: 2c21cd3b125bca6dc285096fb7076ef8
-    entity_id: light.rgbcw_dream_color_strip_light
-    domain: light
-  - type: turn_off
-    device_id: 3753e0be1e01e049fde694b76e1063da
-    entity_id: switch.nvpd_5141_socket_3
-    domain: switch
-  - type: turn_off
-    device_id: 3753e0be1e01e049fde694b76e1063da
-    entity_id: switch.nvpd_5141_socket_5
-    domain: switch
-  - type: turn_off
-    device_id: c46fb495627262b868b9e09950936262
-    entity_id: switch.billy_bookcase_breaker_switch
-    domain: switch
-  - type: turn_off
-    device_id: d6927ad9035dbe4e36f3f230f3a0f7c0
-    entity_id: fan.zhimi_za5_beba_fan_2
-    domain: fan
-  mode: single
-- id: '1687986170391'
-  alias: 'Button 1: Single Click'
-  description: Toggle Office Light Switch
-  trigger:
-  - platform: device
-    domain: mqtt
-    device_id: cb29a302c231889a9230b2721ef293c6
-    type: action
-    subtype: 1_single
-    discovery_id: 0x847127fffee7a266 action_1_single
-  condition: []
-  action:
-  - type: toggle
-    device_id: fe21a17957d306d103a331a934918d42
-    entity_id: switch.office_light_switch
-    domain: switch
+  - service: scene.turn_on
+    target:
+      entity_id: scene.leave_workspace
+    metadata: {}
   mode: single
 - id: '1687986581799'
-  alias: 'Button 1: Double Click'
+  alias: 'Wireless Scene Switch Button 1: Double Click'
   description: Turn on devices in Office
   trigger:
   - platform: device
@@ -73,30 +27,13 @@
     discovery_id: 0x847127fffee7a266 action_1_double
   condition: []
   action:
-  - device_id: af024292ca2322da80be1da7d93f40a9
-    domain: climate
-    entity_id: climate.mitsubishi_electric_office
-    type: set_hvac_mode
-    hvac_mode: cool
-  - type: turn_on
-    device_id: fe21a17957d306d103a331a934918d42
-    entity_id: switch.office_light_switch
-    domain: switch
-  - type: turn_on
-    device_id: 3753e0be1e01e049fde694b76e1063da
-    entity_id: switch.nvpd_5141_socket_5
-    domain: switch
-  - type: turn_on
-    device_id: 6ee7f9569927e68779688453712a062f
-    entity_id: light.dream_color_strip_neon_light
-    domain: light
-  - type: turn_on
-    device_id: 2c21cd3b125bca6dc285096fb7076ef8
-    entity_id: light.rgbcw_dream_color_strip_light
-    domain: light
+  - service: scene.turn_on
+    target:
+      entity_id: scene.start_work
+    metadata: {}
   mode: single
 - id: '1687987105333'
-  alias: 'Button 2: Single Click'
+  alias: 'Wireless Scene Switch Button 2: Single Click'
   description: Toggle Color Strip Light
   trigger:
   - platform: device
@@ -111,41 +48,41 @@
     - conditions:
       - condition: device
         type: is_off
-        device_id: 3753e0be1e01e049fde694b76e1063da
-        entity_id: switch.nvpd_5141_socket_5
-        domain: switch
+        device_id: 2c21cd3b125bca6dc285096fb7076ef8
+        entity_id: b6e5db59ae91bfe8cd001c5d476a12c3
+        domain: light
       sequence:
       - type: turn_on
-        device_id: 3753e0be1e01e049fde694b76e1063da
-        entity_id: switch.nvpd_5141_socket_5
-        domain: switch
-      - type: turn_on
         device_id: 2c21cd3b125bca6dc285096fb7076ef8
-        entity_id: light.rgbcw_dream_color_strip_light
+        entity_id: b6e5db59ae91bfe8cd001c5d476a12c3
         domain: light
       - type: turn_on
         device_id: 6ee7f9569927e68779688453712a062f
-        entity_id: light.dream_color_strip_neon_light
+        entity_id: 2b56ccd2dee1b22ab8d4c58207a52ccd
         domain: light
+      - type: turn_on
+        device_id: aeb01ddad29791c65fa07d1adccf99b3
+        entity_id: 3beb3f18675dcb8da97c13a9939733da
+        domain: switch
     - conditions:
       - condition: device
         type: is_on
-        device_id: 3753e0be1e01e049fde694b76e1063da
-        entity_id: switch.nvpd_5141_socket_5
-        domain: switch
+        device_id: 2c21cd3b125bca6dc285096fb7076ef8
+        entity_id: b6e5db59ae91bfe8cd001c5d476a12c3
+        domain: light
       sequence:
       - type: turn_off
-        device_id: 3753e0be1e01e049fde694b76e1063da
-        entity_id: switch.nvpd_5141_socket_5
-        domain: switch
-      - type: turn_off
         device_id: 2c21cd3b125bca6dc285096fb7076ef8
-        entity_id: light.rgbcw_dream_color_strip_light
+        entity_id: b6e5db59ae91bfe8cd001c5d476a12c3
         domain: light
       - type: turn_off
         device_id: 6ee7f9569927e68779688453712a062f
-        entity_id: light.dream_color_strip_neon_light
+        entity_id: 2b56ccd2dee1b22ab8d4c58207a52ccd
         domain: light
+      - type: turn_off
+        device_id: aeb01ddad29791c65fa07d1adccf99b3
+        entity_id: 3beb3f18675dcb8da97c13a9939733da
+        domain: switch
   mode: single
 - id: '1688032614649'
   alias: Toggle Automation Micro Switch
@@ -192,7 +129,7 @@
         domain: switch
   mode: single
 - id: '1688047602778'
-  alias: 'Button 3: Double Click'
+  alias: 'Wireless Scene Switch Button 3: Double Click'
   description: Turn Off Some Devices for Movie Mode
   trigger:
   - platform: device
@@ -205,8 +142,8 @@
   action:
   - type: turn_off
     device_id: fe21a17957d306d103a331a934918d42
-    entity_id: switch.office_light_switch
-    domain: switch
+    entity_id: c9df5bd1ee2910b640ed8bffcfe7ce40
+    domain: light
   - type: turn_off
     device_id: 2c21cd3b125bca6dc285096fb7076ef8
     entity_id: light.rgbcw_dream_color_strip_light
@@ -216,91 +153,18 @@
     entity_id: light.dream_color_strip_neon_light
     domain: light
   - type: turn_off
-    device_id: 3753e0be1e01e049fde694b76e1063da
-    entity_id: switch.nvpd_5141_socket_5
-    domain: switch
-  - type: turn_off
-    device_id: 3753e0be1e01e049fde694b76e1063da
-    entity_id: switch.nvpd_5141_socket_3
-    domain: switch
-  - type: turn_off
     device_id: c46fb495627262b868b9e09950936262
     entity_id: switch.billy_bookcase_breaker_switch
     domain: switch
+  - type: turn_off
+    device_id: aeb01ddad29791c65fa07d1adccf99b3
+    entity_id: c0ce6c99d98b754b30ac3740c6c00528
+    domain: switch
+  - type: turn_off
+    device_id: aeb01ddad29791c65fa07d1adccf99b3
+    entity_id: 3beb3f18675dcb8da97c13a9939733da
+    domain: switch
   mode: single
-- id: '1688047956859'
-  alias: 'Button 4: Double Click'
-  description: Toggle Buddha Light
-  trigger:
-  - platform: device
-    domain: mqtt
-    device_id: cb29a302c231889a9230b2721ef293c6
-    type: action
-    subtype: 4_double
-    discovery_id: 0x847127fffee7a266 action_4_double
-  condition: []
-  action:
-  - choose:
-    - conditions:
-      - condition: or
-        conditions:
-        - condition: device
-          type: is_off
-          device_id: 3753e0be1e01e049fde694b76e1063da
-          entity_id: switch.nvpd_5141_socket_3
-          domain: switch
-        - condition: device
-          type: is_off
-          device_id: c46fb495627262b868b9e09950936262
-          entity_id: switch.billy_bookcase_breaker_switch
-          domain: switch
-      sequence:
-      - type: turn_on
-        device_id: 3753e0be1e01e049fde694b76e1063da
-        entity_id: switch.nvpd_5141_socket_3
-        domain: switch
-      - type: turn_on
-        device_id: c46fb495627262b868b9e09950936262
-        entity_id: switch.billy_bookcase_breaker_switch
-        domain: switch
-    - conditions: []
-      sequence:
-      - type: turn_off
-        device_id: 3753e0be1e01e049fde694b76e1063da
-        entity_id: switch.nvpd_5141_socket_3
-        domain: switch
-      - type: turn_off
-        device_id: c46fb495627262b868b9e09950936262
-        entity_id: switch.billy_bookcase_breaker_switch
-        domain: switch
-  mode: single
-- id: '1691045616398'
-  alias: Link Multiple Switches - Stair
-  description: ''
-  use_blueprint:
-    path: aderusha/link_multiple_switches.yaml
-    input:
-      switches:
-      - switch.stair_switch
-      - switch.kitchen_stair_backdoor_left
-- id: '1691054901681'
-  alias: Link Multiple Switches - Garage
-  description: ''
-  use_blueprint:
-    path: aderusha/link_multiple_switches.yaml
-    input:
-      switches:
-      - switch.garage_switch_l1
-      - switch.front_house_switch_center
-- id: '1691055072971'
-  alias: Link Multiple Switches - Side Yard
-  description: ''
-  use_blueprint:
-    path: aderusha/link_multiple_switches.yaml
-    input:
-      switches:
-      - switch.side_yard_light_switch_1_433_switch_1
-      - switch.garage_switch_l2
 - id: '1691071975727'
   alias: NSPanel Configuration
   description: ''
@@ -310,4 +174,237 @@
       nspanel_name: a1ecf0ef1b5813c1b25bced6ee215388
       date_format: '%A, %d/%m'
       weather_entity: weather.forecast_sweet_home_jp
-      climate: climate.mitsubishi_electric_office
+      climate: climate.mitsubishi_electric_1stfloor
+      relay_1_local_fallback: true
+      left_button_entity: switch.nspanel_usw_relay_1
+      left_button_name: Dinning
+      left_button_hold_select: Default
+      relay_2_local_fallback: true
+      right_button_entity: switch.nspanel_usw_relay_2
+      right_button_name: Living
+      delay: 2
+      home_value01: sensor.zhimi_mb3_fe5b_relative_humidity_2
+      home_value01_icon: mdi:water-percent
+      home_value02_icon: mdi:shield-alert-outline
+      home_value01_icon_color:
+      - 146
+      - 147
+      - 150
+      home_value01_label_color:
+      - 146
+      - 147
+      - 150
+      chip01_icon: mdi:door-sliding-open
+      button_page01_label: Lights
+      entity01: light.living_front_door_switch_right
+      entity01_icon: ''
+      entity02: light.front_house_switch_right
+      entity02_icon: ''
+      entitypages_enabled: false
+      home_value02: sensor.dscalarm_partition_1_msg
+      home_value02_icon_color:
+      - 146
+      - 147
+      - 150
+      home_value02_label_color:
+      - 146
+      - 147
+      - 150
+      home_value03: sensor.dscalarm_partition_1_status
+      home_value03_icon_color:
+      - 146
+      - 147
+      - 150
+      home_value03_label_color:
+      - 146
+      - 147
+      - 150
+      chip01: binary_sensor.dscalarm_z01_front_door
+      chip02: binary_sensor.dscalarm_z02_living_window
+      chip03: binary_sensor.dscalarm_z03_dining_door_window
+      chip04: binary_sensor.dscalarm_z04_kitchen_door
+      chip05: binary_sensor.dscalarm_z05_bathroom_window
+      chip05_icon: ''
+      qrcode_value: WIFI:S:Sweet Home JP;T:WPA;P:1212312121;H:false;;
+      qrcode_label: WIFI
+      qrcode_enabled: true
+      right_button_hold_select: Custom Action
+      right_button_hold_custom_action:
+      - type: turn_on
+        device_id: 2236526b5726b84865a07721d072d6ea
+        entity_id: 84aa575f2e3f86364ce0502ed0090179
+        domain: switch
+      - type: turn_off
+        device_id: a1ecf0ef1b5813c1b25bced6ee215388
+        entity_id: c54f4ed19a35edb0dc392e12dc0e2ba6
+        domain: switch
+      - type: turn_off
+        device_id: a1ecf0ef1b5813c1b25bced6ee215388
+        entity_id: 545d13712392722136743d7b0338122b
+        domain: switch
+      - type: turn_off
+        device_id: b8fb3b4345e146f46aee6556874f9d38
+        entity_id: 71d5bfdcfbaf4b954dbb058c8059c871
+        domain: remote
+      - device_id: 370dafb84d5aaec95001f69f900865fc
+        domain: climate
+        entity_id: 638d83c0b5a950faaa56a6ef650ef61b
+        type: set_hvac_mode
+        hvac_mode: 'off'
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 45
+          milliseconds: 0
+      - type: turn_off
+        device_id: 2236526b5726b84865a07721d072d6ea
+        entity_id: 84aa575f2e3f86364ce0502ed0090179
+        domain: switch
+      relay01_icon: mdi:pasta
+      left_button_hold_custom_action: []
+      entity03: light.garage_switch_l1
+      entity04: light.side_yard_light_switch_1_433_switch_1
+      entity05: light.nspanel_usw_relay_2
+      entity05_name: Living Light
+      entity06: light.nspanel_usw_relay_1
+      entity06_name: Dinning Light
+      entity07: light.kitchen_stair_backdoor_center
+      entity07_name: Kitchen Light
+      entity04_name: Side Yard Light
+      entity03_name: Garage Light
+      entity02_name: Fence Gate Light
+      entity01_name: Front Door Light
+      entity08: light.yeelight_stripe
+      entity08_name: Kitchen Top Light
+      hold_delay: 4
+      entity_page02_label: Workspace
+      chip02_icon: mdi:window-open-variant
+      chip03_icon: mdi:door-open
+      chip04_icon: mdi:door-open
+      button_page02_label: Workspace
+      entity09: scene.start_work
+      entity09_name: Enter Workspace
+      entity09_icon: ''
+      entity10: scene.leave_workspace
+      entity10_icon: ''
+      entity10_name: Leave Workspace
+      entity11: light.workspace_light
+      entity11_name: Workspace Light
+      entity11_icon: mdi:ceiling-light
+      entity12: light.rgbcw_dream_color_strip_light
+      entity12_name: Strip Light
+      entity12_icon: mdi:led-strip-variant
+      entity13: light.dream_color_strip_neon_light
+      entity13_name: Strip Neon Light
+      entity13_icon: mdi:led-strip-variant
+      entity14: switch.nvpd_5141_socket_5
+      entity14_name: WipWup Neon Light
+      entity14_icon: mdi:led-outline
+      entity15: switch.nvpd_5141_socket_3
+      entity15_name: Buddha Shelf
+      entity15_icon: mdi:spa-outline
+      entity16_icon: mdi:bookshelf
+      entity16: switch.billy_bookcase_breaker_switch
+      entity16_name: Billy Bookcase
+      relay02_icon: mdi:sofa-outline
+      climate_button08_icon: ''
+      climate_value01: sensor.zhimi_mb3_fe5b_relative_humidity_2
+      climate_value01_icon: mdi:water-percent
+      climate_value02: sensor.zhimi_mb3_fe5b_pm25_2
+      climate_value02_icon: mdi:air-filter
+- id: '1691601978106'
+  alias: 'Wireless Scene Switch Button 1: Single Click'
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: cb29a302c231889a9230b2721ef293c6
+    type: action
+    subtype: 1_single
+    discovery_id: 0x847127fffee7a266 action_1_single
+  condition: []
+  action:
+  - type: toggle
+    device_id: fe21a17957d306d103a331a934918d42
+    entity_id: eb2e0226a05206f8b227e3bf34294841
+    domain: switch
+  mode: single
+- id: '1691696329240'
+  alias: 'Wireless Scene Switch Button 3: Single Click'
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: cb29a302c231889a9230b2721ef293c6
+    type: action
+    subtype: 3_single
+    discovery_id: 0x847127fffee7a266 action_3_single
+  condition: []
+  action:
+  - type: toggle
+    device_id: aeb01ddad29791c65fa07d1adccf99b3
+    entity_id: c0ce6c99d98b754b30ac3740c6c00528
+    domain: switch
+  mode: single
+- id: '1691696413402'
+  alias: 'Wireless Scene Switch Button 4: Single Click'
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: cb29a302c231889a9230b2721ef293c6
+    type: action
+    subtype: 4_single
+    discovery_id: 0x847127fffee7a266 action_4_single
+  condition: []
+  action:
+  - type: toggle
+    device_id: c46fb495627262b868b9e09950936262
+    entity_id: e3874db2a29a547988c1c29e390de309
+    domain: switch
+  mode: single
+- id: '1691737545167'
+  alias: Link Multiple Switches - Garage Switch
+  description: ''
+  use_blueprint:
+    path: chettapong/link_multiple_switches.yaml
+    input:
+      switches:
+      - switch.garage_switch_l1
+      - switch.front_house_switch_center
+- id: '1691737567600'
+  alias: Link Multiple Switches - Stair Switch
+  description: ''
+  use_blueprint:
+    path: chettapong/link_multiple_switches.yaml
+    input:
+      switches:
+      - switch.stair_switch
+      - switch.kitchen_stair_backdoor_left
+- id: '1691737826082'
+  alias: Link Multiple Switches - Side Yard Switch
+  description: ''
+  use_blueprint:
+    path: chettapong/link_multiple_switches.yaml
+    input:
+      switches:
+      - switch.side_yard_light_switch_1_433_switch
+      - switch.garage_switch_l2
+- id: '1691738432759'
+  alias: Update Map Extractor camera
+  description: ''
+  use_blueprint:
+    path: PiotrMachowski/update_map_extractor.yaml
+    input:
+      mode_to_handle: default_when_cleaning
+      vacuum: vacuum.roidmi_v60_fa52_robot_cleaner
+      camera: camera.roidmi_eve
+- id: '1691830752623'
+  alias: Link Multiple Switches - Side Yard Switch
+  description: ''
+  use_blueprint:
+    path: chettapong/link_multiple_switches.yaml
+    input:
+      switches:
+      - switch.side_yard_light_switch_1_433_switch
+      - switch.garage_switch_l2

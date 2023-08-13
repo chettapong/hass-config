@@ -1,11 +1,14 @@
-# LOVELACE RESOURCES
-
+#################################################################
+## LOVELACE RESOURCES
+#################################################################
 - url: /local/fonts/fonts.css
   type: css
 - url: /hacsfiles/kiosk-mode/kiosk-mode.js
   type: module
 
-# General UI
+#################################################################
+## General UI
+#################################################################
 - url: /hacsfiles/custom-icons/custom-icons.js
   type: module
 - url: /hacsfiles/lovelace-layout-card/layout-card.js
@@ -15,6 +18,10 @@
 - url: /hacsfiles/button-card/button-card.js
   type: module
 
-# Custom UI
+#################################################################
+## Custom UI
+#################################################################
 - url: /hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js
+  type: module
+- url: /webrtc/webrtc-camera.js
   type: module

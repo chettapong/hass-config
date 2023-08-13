@@ -1,11 +1,12 @@
 /*
 /*/
-!blueprints/*/chettapong
-!esphome
-!lovelace
-!themes
-!www/fonts
+!/blueprints
+!/esphome
+!/lovelace
+!/themes
+!/www/fonts
 !.gitignore
+!.editorconfig
 !automations.yaml
 !configuration.yaml
 !hass-config.code-workspace

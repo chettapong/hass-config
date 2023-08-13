@@ -26,8 +26,25 @@ google_assistant:
   service_account: !include SERVICE_ACCOUNT.JSON
   report_state: true
   exposed_domains:
-    - switch
+    # - switch
     - light
+  entity_config:
+    light.dream_color_strip_neon_light:
+      expose: false
+    light.deerma_jsq5_9b11_indicator_light:
+      expose: false
+    light.rgbcw_dream_color_strip_light:
+      expose: false
+    light.yeelink_strip2_342e_light_2:
+      expose: false
+    light.yeelight_stripe_0x12ce73b3:
+      expose: false
+    light.zhimi_mb3_fe5b_indicator_light_2:
+      expose: false
+    light.zhimi_za5_beba_indicator_light_2:
+      expose: false
+    light.zhimi_mb3_5d70_indicator_light_2:
+      expose: false
 
 # Loads default set of integrations. Do not remove.
 default_config:
@@ -39,6 +56,10 @@ tts:
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
+
+##############################################
+################ UI Libraries ################
+##############################################
 
 # Load frontend themes from the themes folder
 frontend:
@@ -59,13 +80,17 @@ lovelace:
       filename: lovelace/dashboards/dashboard.yaml
 
     # Rooms + Areas
-    # lovelace-rooms:
-    #   mode: yaml
-    #   title: Rooms
-    #   icon: mdi:sofa
-    #   show_in_sidebar: true
-    #   require_admin: false
-    #   filename: lovelace/dashboards/rooms.yaml
+    lovelace-rooms:
+      mode: yaml
+      title: Rooms
+      icon: mdi:sofa
+      show_in_sidebar: true
+      require_admin: false
+      filename: lovelace/dashboards/rooms.yaml
+
+#################################################################
+## Components
+#################################################################
 
 # AirCloud Home Assistant Integration
 air_cloud:
@@ -73,3 +98,55 @@ air_cloud:
   password: !secret air_cloud_password
 climate:
   - platform: air_cloud
+
+# Xiaomi Cloud Map Extractor
+camera:
+  - platform: xiaomi_cloud_map_extractor
+    host: !secret xiaomi_vacuum_host
+    token: !secret xiaomi_vacuum_token
+    username: !secret xiaomi_cloud_username
+    password: !secret xiaomi_cloud_password
+    country: "sg"
+    draw: ["all"]
+    name: "ROIDMI EVE"
+    colors:
+      color_map_inside: [32, 115, 185]
+      color_map_outside: [0, 0, 0]
+      color_map_wall: [100, 196, 254]
+      color_map_wall_v2: [93, 109, 126]
+      color_grey_wall: [93, 109, 126]
+      color_ignored_obstacle: [0, 0, 0, 127]
+      color_ignored_obstacle_with_photo: [0, 0, 0, 127]
+      color_obstacle: [0, 0, 0, 127]
+      color_obstacle_with_photo: [0, 0, 0, 127]
+      color_path: [147, 194, 238]
+      color_goto_path: [0, 255, 0]
+      color_predicted_path: [255, 255, 0, 0]
+      color_cleaned_area: [127, 127, 127, 127]
+      color_zones: [0xAD, 0xD8, 0xFF, 0x8F]
+      color_zones_outline: [0xAD, 0xD8, 0xFF]
+      color_virtual_walls: [255, 0, 0]
+      color_new_discovered_area: [64, 64, 64]
+      color_no_go_zones: [255, 33, 55, 127]
+      color_no_go_zones_outline: [255, 0, 0]
+      color_no_mop_zones: [163, 130, 211, 127]
+      color_no_mop_zones_outline: [163, 130, 211]
+      color_charger: [0x66, 0xfe, 0xda, 0x7f]
+      color_robo: [75, 235, 149]
+      color_room_names: [0, 0, 0]
+      color_unknown: [0, 0, 0]
+      color_scan: [0xDF, 0xDF, 0xDF]
+    map_transformation:
+      scale: 4
+      trim:
+        top: 35
+    sizes:
+      charger_radius: 24
+      vacuum_radius: 24
+      obstacle_radius: 12
+      ignored_obstacle_radius: 12
+      obstacle_with_photo_radius: 12
+      ignored_obstacle_with_photo_radius: 12
+      path_width: 4
+    attributes:
+      - calibration_points

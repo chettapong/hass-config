@@ -192,6 +192,8 @@ button:
 ##### START - API CONFIGURATION #####
 api:
   id: api_server
+  encryption:
+    key: "OoNMf9iufYl9uP4PReR62lL+8qTSEAIK1P8mfowRU2k="
 
   services:
 

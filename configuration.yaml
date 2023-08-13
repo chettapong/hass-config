@@ -19,33 +19,6 @@ http:
   trusted_proxies:
     - 127.0.0.1
 
-# Google Assistant integration
-# See https://www.home-assistant.io/integrations/google_assistant/#configuration-variables
-google_assistant:
-  project_id: !secret google_assistant_project_id
-  service_account: !include SERVICE_ACCOUNT.JSON
-  report_state: true
-  exposed_domains:
-    # - switch
-    - light
-  entity_config:
-    light.dream_color_strip_neon_light:
-      expose: false
-    light.deerma_jsq5_9b11_indicator_light:
-      expose: false
-    light.rgbcw_dream_color_strip_light:
-      expose: false
-    light.yeelink_strip2_342e_light_2:
-      expose: false
-    light.yeelight_stripe_0x12ce73b3:
-      expose: false
-    light.zhimi_mb3_fe5b_indicator_light_2:
-      expose: false
-    light.zhimi_za5_beba_indicator_light_2:
-      expose: false
-    light.zhimi_mb3_5d70_indicator_light_2:
-      expose: false
-
 # Loads default set of integrations. Do not remove.
 default_config:
 
@@ -91,6 +64,133 @@ lovelace:
 #################################################################
 ## Components
 #################################################################
+
+# Google Assistant integration
+# See https://www.home-assistant.io/integrations/google_assistant/#configuration-variables
+google_assistant:
+  project_id: !secret google_assistant_project_id
+  service_account: !include SERVICE_ACCOUNT.JSON
+  report_state: true
+  expose_by_default: false
+  entity_config:
+    ## Alarm control panel
+    # alarm_control_panel.dsc_alarm:
+    #   name:
+
+    # Camera
+    camera.nvt_mainstream:
+      name: กล้องหน้าบ้าน
+      aliases:
+        - Front house camera
+    camera.ipc_03_profile_000:
+      name: กล้องข้างบ้าน
+      aliases:
+        - Side house camera
+    camera.ipc_04_profile_000:
+      name: กล้องหลังบ้าน
+      aliases:
+        - Back yard camera
+    camera.ipc_05_mainstream:
+      name: กล้องห้องครัว
+      aliases:
+        - Kitchen room camera
+
+    ## Climate
+    climate.mitsubishi_electric_1stfloor:
+      name: แอร์ชั้นล่าง
+    climate.mitsubishi_electric_workspace:
+      name: แอร์ห้องทำงาน
+    # climate.mitsubishi_electric_bedroom:
+    #   name: แอร์ห้องนอนเล็ก
+
+    # Fan
+    fan.dmaker_p9_1cbb_fan:
+      name: พัดลม
+      aliases:
+        - พัดลมห้องนอน
+        - Tower fan
+    fan.zhimi_za5_beba_fan:
+      name: พัดลม
+      aliases:
+        - พัดลมห้องทำงาน
+        - Standing fan
+
+    ## Light
+    light.front_house_switch_left:
+      name: โคมไฟกิ่งหน้าบ้าน
+      aliases:
+        - Front Wall Light
+    light.front_house_switch_right:
+      name: ไฟประตูรั้ว
+      aliases:
+        - Fence Gate Light
+    light.garage_switch_l1:
+      name: ไฟหลังคาจอดรถ
+      aliases:
+        - Garage Light
+    light.living_front_door_switch_left:
+      name: ไฟหน้าทีวี
+      aliases:
+        - Living light
+        - TV light
+    light.living_front_door_switch_right:
+      name: ไฟประตูหน้าบ้าน
+      aliases:
+        - Front Door Light
+    light.dining_switch:
+      name: ไฟโต๊ะกินข้าว
+      aliases:
+        - ไฟโต๊ะทานข้าว
+        - Dining Light
+    light.stair_switch:
+      name: ไฟบันได
+      aliases:
+        - Stair Light
+    light.kitchen_stair_backdoor_center:
+      name: ไฟห้องครัว
+      aliases:
+        - Kitchen light
+    light.kitchen_stair_backdoor_right:
+      name: ไฟหลังบ้าน
+      aliases:
+        - Backdoor Light
+    light.workspace_light:
+      name: ไฟห้องทำงาน
+      aliases:
+        - Workspace light
+    light.nspanel_usw_relay_1:
+      name: ไฟโต๊ะกินข้าว
+      aliases:
+        - ไฟโต๊ะทานข้าว
+        - Dining Light
+    light.nspanel_usw_relay_2:
+      aliases:
+        - ไฟหน้าทีวี
+    light.controller_rgb_ir_cd8027:
+      aliases:
+        - Bed light
+        - ไฟเตียง
+
+    # Switch
+    switch.smart_plug_desk:
+      name: ปลั๊กไฟโต๊ะทำงาน
+      aliases:
+        - Desk outlet
+    switch.smart_plug_ups:
+      name: ปลั๊กเครื่องสำรองไฟ
+      aliases:
+        - UPS outlet
+    switch.smart_plug_refrigerator:
+      name: ปลั๊กตู้เย็น
+      aliases:
+        - Refrigerator outlet
+
+    # Vacuum
+    vacuum.roidmi_v60_fa52_robot_cleaner:
+      name: หุ่นยนต์ดูดฝุ่น
+      aliases:
+        - ROIDMI EVE Robot Cleaner
+        - Robot Cleaner
 
 # AirCloud Home Assistant Integration
 air_cloud:

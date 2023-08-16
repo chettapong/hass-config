@@ -1,0 +1,32 @@
+# Kitchen View
+# Made by Chettapong 2023
+# https://hass-config.wipwup.xyz/
+#
+# Inspiration from Madelena Mak 2022
+# https://mmak.es
+
+title: Kitchen
+path: kitchen
+
+type: "custom:grid-layout"
+layout: !include ../../shared/snippets/layout-page-margin.yaml
+
+cards:
+  - type: "custom:layout-card"
+    layout_type: "custom:grid-layout"
+    layout: !include ../../shared/snippets/layout-page-columns.yaml
+    view_layout:
+      grid-area: cc
+    cards:
+      # [Header] Summary
+
+      - type: "custom:layout-card"
+        layout_type: "custom:grid-layout"
+        layout: !include ../../shared/snippets/layout-page-title.yaml
+        view_layout:
+          grid-column: 1/-1
+        cards:
+          - type: markdown
+            style: !include ../../shared/snippets/style-markdown-page-title.yaml
+            content: >
+              # Kitchen

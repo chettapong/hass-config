@@ -48,7 +48,7 @@ lovelace:
     lovelace-dashboard:
       mode: yaml
       title: Dashboard
-      icon: mdi:script
+      icon: mdi:monitor
       show_in_sidebar: true
       filename: lovelace/dashboards/dashboard.yaml
 

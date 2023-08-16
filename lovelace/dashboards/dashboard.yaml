@@ -1,8 +1,22 @@
+# Dashboard for Home Assistant
+#
+# Made by Chettapong 2023
+# https://hass-config.wipwup.xyz/
+#
+# Inspiration from Madelena Mak 2022
+# https://mmak.es
+
 title: Dashboard
 
 views:
   - !include ../views/summary.yaml
+  - !include ../views/security.yaml
+
+# See https://github.com/zanna-37/hass-swipe-navigation#config
+swipe_nav:
+  animate: swipe
+  prevent_default: true
 
 # See https://github.com/NemesisRE/kiosk-mode#config-options
 kiosk_mode:
-  hide_header: true
+  hide_header: false

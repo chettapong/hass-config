@@ -1,10 +1,22 @@
-title: My Rooms
+# Rooms Dashboard
+#
+# Made by Chettapong 2023
+# https://hass-config.wipwup.xyz/
+#
+# Inspiration from Madelena Mak 2022
+# https://mmak.es
+
+title: Rooms
 views:
-  # View tab title.
-  - title: Example
-    cards:
-      # The markdown card will render markdown text.
-      - type: markdown
-        title: Rooms
-        content: >
-          Welcome to your **rooms**.
+  - !include ../views/rooms/1st-floor.yaml
+  - !include ../views/rooms/bedroom.yaml
+  - !include ../views/rooms/workspace.yaml
+  - !include ../views/rooms/kitchen.yaml
+  - !include ../views/rooms/porch.yaml
+
+decluttering_templates: !include ../templates/decluttering-card.yaml
+button_card_templates: !include_dir_merge_named ../templates/button-card/
+
+swipe_nav:
+  animate: swipe
+  prevent_default: true

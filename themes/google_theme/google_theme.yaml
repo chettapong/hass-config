@@ -32,7 +32,7 @@ Google Theme:
       divider-color: var(--primary-background-color)
       accent-color: rgb(26, 115, 232)
       # Text
-      primary-text-color: rgb(32, 33, 36)
+      primary-text-color: rgb(21, 21, 21)
       secondary-text-color: rgb(95, 99, 104)
       text-primary-color: var(--primary-text-color)
       disabled-text-color: rgba(95, 99, 104, 0.4)
@@ -143,8 +143,8 @@ Google Theme:
       app-header-edit-background-color: rgb(136, 136, 136)
       # Main Interface Colors
       primary-color: rgb(138, 180, 248)
-      primary-background-color: rgb(23, 23, 23)
-      secondary-background-color: rgb(32, 33, 36)
+      primary-background-color: rgb(17, 17, 17)
+      secondary-background-color: rgb(21, 21, 21)
       divider-color: var(--primary-background-color)
       accent-color: var(--primary-color)
       # Text
@@ -155,7 +155,7 @@ Google Theme:
       # Sidebar Menu
       sidebar-icon-color: rgb(169, 177, 188)
       sidebar-text-color: rgb(198, 203, 210)
-      sidebar-background-color: rgb(32, 33, 36)
+      sidebar-background-color: rgb(21, 21, 21)
       sidebar-selected-icon-color: rgb(138, 180, 248)
       sidebar-selected-text-color: var(--sidebar-selected-icon-color)
       # Buttons
@@ -181,8 +181,8 @@ Google Theme:
       label-badge-yellow: rgb(223, 194, 113)
       label-badge-gray: rgb(95, 98, 103)
       # Cards
-      card-background-color: rgb(32, 33, 36)
-      ha-card-background: rgb(32, 33, 36)
+      card-background-color: rgb(21, 21, 21)
+      ha-card-background: rgb(21, 21, 21)
       ha-card-border-color: rgb(42, 43, 46)
       paper-dialog-background-color: var(--card-background-color)
       paper-listbox-background-color: var(--card-background-color)

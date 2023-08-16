@@ -3,6 +3,8 @@
 #################################################################
 - url: /local/fonts/fonts.css
   type: css
+- url: /local/alarm-keypad-card.js?id=1
+  type: module
 - url: /hacsfiles/kiosk-mode/kiosk-mode.js
   type: module
 
@@ -17,11 +19,19 @@
   type: module
 - url: /hacsfiles/button-card/button-card.js
   type: module
+- url: /hacsfiles/hass-swipe-navigation/swipe-navigation.js
+  type: module
+- url: /hacsfiles/lovelace-card-mod/card-mod.js
+  type: module
+- url: /hacsfiles/decluttering-card/decluttering-card.js
+  type: module
+- url: /hacsfiles/slider-button-card/slider-button-card.js
+  type: module
 
 #################################################################
 ## Custom UI
 #################################################################
 - url: /hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js
   type: module
-- url: /webrtc/webrtc-camera.js
-  type: module
+# - url: /webrtc/webrtc-camera.js
+#   type: module

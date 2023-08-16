@@ -180,7 +180,6 @@
       left_button_name: Dinning
       left_button_hold_select: Default
       relay_2_local_fallback: true
-      right_button_entity: switch.nspanel_usw_relay_2
       right_button_name: Living
       delay: 2
       home_value01: sensor.zhimi_mb3_fe5b_relative_humidity_2
@@ -263,7 +262,7 @@
       relay01_icon: mdi:pasta
       left_button_hold_custom_action: []
       entity03: light.garage_switch_l1
-      entity04: light.side_yard_light_switch_1_433_switch_1
+      entity04: light.side_yard_light_switch_1_433
       entity05: light.nspanel_usw_relay_2
       entity05_name: Living Light
       entity06: light.nspanel_usw_relay_1
@@ -312,6 +311,8 @@
       climate_value01_icon: mdi:water-percent
       climate_value02: sensor.zhimi_mb3_fe5b_pm25_2
       climate_value02_icon: mdi:air-filter
+      entities_entity32_icon: ''
+      right_button_entity: switch.nspanel_usw_relay_2
 - id: '1691601978106'
   alias: 'Wireless Scene Switch Button 1: Single Click'
   description: ''
@@ -399,12 +400,52 @@
       mode_to_handle: default_when_cleaning
       vacuum: vacuum.roidmi_v60_fa52_robot_cleaner
       camera: camera.roidmi_eve
-- id: '1691830752623'
-  alias: Link Multiple Switches - Side Yard Switch
+- id: '1692184881900'
+  alias: Link Multiple Switches - Living Switch
   description: ''
   use_blueprint:
     path: chettapong/link_multiple_switches.yaml
     input:
       switches:
-      - switch.side_yard_light_switch_1_433_switch
-      - switch.garage_switch_l2
+      - switch.living_front_door_switch_left
+      - switch.nspanel_usw_relay_2
+- id: '1692194711108'
+  alias: Storage Room Sensor Contact
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 1db7777bdad5ae983a079f454f1a7e28
+    entity_id: a4651ec910e5a434eca6e4293df48e6e
+    domain: binary_sensor
+  - type: not_opened
+    platform: device
+    device_id: 1db7777bdad5ae983a079f454f1a7e28
+    entity_id: a4651ec910e5a434eca6e4293df48e6e
+    domain: binary_sensor
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - type: is_open
+        condition: device
+        device_id: 1db7777bdad5ae983a079f454f1a7e28
+        entity_id: a4651ec910e5a434eca6e4293df48e6e
+        domain: binary_sensor
+      sequence:
+      - type: turn_on
+        device_id: 8151eb2acd9aae8c4a51153b41f511c8
+        entity_id: 08b0b037447f27d89d5c16500967aedf
+        domain: light
+    - conditions:
+      - type: is_not_open
+        condition: device
+        device_id: 1db7777bdad5ae983a079f454f1a7e28
+        entity_id: a4651ec910e5a434eca6e4293df48e6e
+        domain: binary_sensor
+      sequence:
+      - type: turn_off
+        device_id: 8151eb2acd9aae8c4a51153b41f511c8
+        entity_id: 08b0b037447f27d89d5c16500967aedf
+        domain: light
+  mode: single

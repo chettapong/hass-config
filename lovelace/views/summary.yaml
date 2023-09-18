@@ -42,7 +42,7 @@ cards:
         "h h h h h"
         "c1 fp fp c2 c3"
       mediaquery:
-        "(max-width: 512px)":
+        "(max-width: 511.99px)":
           grid-template-columns: 1fr
           grid-template-areas: |
             "h"
@@ -50,21 +50,21 @@ cards:
             "c1"
             "c2"
           margin: 0
-        "(max-width: 800px)":
+        "(max-width: 799.99px)":
           grid-template-columns: 1fr 1fr
           grid-template-areas: |
             "h h"
             "fp fp"
             "c1 c2"
           margin: 0
-        "(max-width: 1128px)":
+        "(max-width: 1127.99px)":
           grid-template-columns: 1fr 1fr 1fr
           grid-template-areas: |
             "h h h"
             "c1 fp fp"
             "c2 none none"
           margin: 0
-        "(max-width: 1440px)":
+        "(max-width: 1439.99px)":
           grid-template-columns: >-
             calc( 25% - 24px ) calc( 25% - 24px ) calc( 25% - 24px ) calc(
             25% - 24px )
@@ -80,31 +80,84 @@ cards:
     cards:
       # [Header] Greetings
 
-      - type: "custom:layout-card"
-        layout_type: "custom:grid-layout"
-        layout:
-          grid-template-columns: auto min-content
-          grid-template-rows: auto
-          margin: -1px -1px -1px -1px
-          padding: 0
-        cards:
-          - type: markdown
-            content: >
-              # {% if now() > today_at('18:00') %}Good evening{% elif
-              now() > today_at('12:00') %}Good afternoon{% elif now() >
-              today_at('5:00') %}Good morning{% else %}Good night{%
-              endif %}, {{ user }}.
-            style:
-              .: |
-                ha-card {
-                  background: none;
-                  margin-bottom: -16px;
-                }
-              ha-markdown$: |
-                h1 {
-                  font-size: var(--title-font-size);
-                  font-weight: 500;
-                  line-height: 1.1;
-                  margin-left: -2px;
-                  margin-top: -12px !important;
-                }
+      - type: custom:state-switch
+        entity: user
+        default: default
+        view_layout:
+          grid-area: h
+        states:
+          Maddy:
+            type: "custom:layout-card"
+            layout_type: "custom:grid-layout"
+
+          default:
+            type: "custom:layout-card"
+            layout_type: "custom:grid-layout"
+            layout:
+              grid-template-columns: auto min-content
+              grid-template-rows: auto
+              margin: -1px -1px -1px -1px
+              padding: 0
+            cards:
+              - type: markdown
+                content: >
+                  # {% if now() > today_at('18:00') %}Good evening{% elif
+                  now() > today_at('12:00') %}Good afternoon{% elif now() >
+                  today_at('5:00') %}Good morning{% else %}Good night{%
+                  endif %}, {{ user }}.
+                style:
+                  .: |
+                    ha-card {
+                      background: none;
+                      margin-bottom: -16px;
+                      border: none;
+                    }
+                  ha-markdown$: |
+                    h1 {
+                      font-size: var(--title-font-size);
+                      font-weight: 600;
+                      line-height: 1.1;
+                      margin-left: -2px;
+                      margin-top: -12px !important;
+                    }
+
+              - type: "custom:layout-card"
+                layout_type: "custom:horizontal-layout"
+                cards:
+                  - type: "custom:mushroom-person-card"
+                    entity: person.chettapong_pinsuwan
+                    style:
+                      .: |
+                        ha-card {
+                          background: none;
+                          border: none;
+                        }
+                    use_entity_picture: true
+                    view_layout: null
+                layout:
+                  width: 160
+                  margin: -1
+                view_layout:
+                  place-self: center
+                  show:
+                    mediaquery: "(min-width: 800px)"
+
+              - type: "custom:layout-card"
+                layout_type: "custom:horizontal-layout"
+                cards:
+                  - type: "custom:mushroom-person-card"
+                    entity: person.chettapong_pinsuwan
+                    use_entity_picture: true
+                    hide_state: true
+                    hide_name: true
+                    style: |
+                      ha-card {background: none;
+                        margin-top: 16px;
+                        transform: scale(1.5) translate(-8px);
+                      }
+                layout:
+                  width: 72
+                view_layout:
+                  place-self: start
+                  show:
+                    mediaquery: "(max-width: 799.99px)"

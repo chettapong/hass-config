@@ -1,6 +1,7 @@
 .: |
   ha-card {
     background: none;
+    border: none;
   }
 ha-markdown$: |
   h1 {

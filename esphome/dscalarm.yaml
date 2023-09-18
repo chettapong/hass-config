@@ -29,8 +29,8 @@ substitutions:
   # dscReadPin: "21"
   # dscWritePin: "18"
 
-  #ESP8266 Pins
-  dscClockPin: "5"
+  #ESP8266 Pins (D1, D2, D8 (GPIO 5, 4, 15))
+  dscClockPin: "5" 
   dscReadPin: "4"
   dscWritePin: "15"
 

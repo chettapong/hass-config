@@ -1,19 +1,19 @@
-- id: '1687903120479'
-  alias: 'Wireless Scene Switch Button 1: Hold'
-  description: Turn off all devices in Office
+- id: '1691601978106'
+  alias: 'Wireless Scene Switch Button 1: Single Click'
+  description: ''
   trigger:
   - platform: device
     domain: mqtt
     device_id: cb29a302c231889a9230b2721ef293c6
     type: action
-    subtype: 1_hold
-    discovery_id: 0x847127fffee7a266 action_1_hold
+    subtype: 1_single
+    discovery_id: 0x847127fffee7a266 action_1_single
   condition: []
   action:
-  - service: scene.turn_on
-    target:
-      entity_id: scene.leave_workspace
-    metadata: {}
+  - type: toggle
+    device_id: fe21a17957d306d103a331a934918d42
+    entity_id: f144fb4f134d9366cb15fb857796768c
+    domain: switch
   mode: single
 - id: '1687986581799'
   alias: 'Wireless Scene Switch Button 1: Double Click'
@@ -30,6 +30,23 @@
   - service: scene.turn_on
     target:
       entity_id: scene.start_work
+    metadata: {}
+  mode: single
+- id: '1687903120479'
+  alias: 'Wireless Scene Switch Button 1: Hold'
+  description: Turn off all devices in Office
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: cb29a302c231889a9230b2721ef293c6
+    type: action
+    subtype: 1_hold
+    discovery_id: 0x847127fffee7a266 action_1_hold
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.leave_workspace
     metadata: {}
   mode: single
 - id: '1687987105333'
@@ -84,49 +101,39 @@
         entity_id: 3beb3f18675dcb8da97c13a9939733da
         domain: switch
   mode: single
-- id: '1688032614649'
-  alias: Toggle Automation Micro Switch
+- id: '1691696329240'
+  alias: 'Wireless Scene Switch Button 3: Single Click'
   description: ''
   trigger:
-  - type: temperature
-    platform: device
-    device_id: d38f58bcea4cc4ef10c6ecadc34ec3f7
-    entity_id: sensor.temperature_and_humidity_sensor_temperature
-    domain: sensor
-    above: 35
-  - type: temperature
-    platform: device
-    device_id: d38f58bcea4cc4ef10c6ecadc34ec3f7
-    entity_id: sensor.temperature_and_humidity_sensor_temperature
-    domain: sensor
-    below: 30
+  - platform: device
+    domain: mqtt
+    device_id: cb29a302c231889a9230b2721ef293c6
+    type: action
+    subtype: 3_single
+    discovery_id: 0x847127fffee7a266 action_3_single
   condition: []
   action:
-  - choose:
-    - conditions:
-      - type: is_temperature
-        condition: device
-        device_id: d38f58bcea4cc4ef10c6ecadc34ec3f7
-        entity_id: sensor.temperature_and_humidity_sensor_temperature
-        domain: sensor
-        above: 35
-      sequence:
-      - type: turn_on
-        device_id: 2db33914b4942e53a9c190cb1bc053c3
-        entity_id: switch.sonoff_1001d9bbae_1
-        domain: switch
-    - conditions:
-      - type: is_temperature
-        condition: device
-        device_id: d38f58bcea4cc4ef10c6ecadc34ec3f7
-        entity_id: sensor.temperature_and_humidity_sensor_temperature
-        domain: sensor
-        below: 30
-      sequence:
-      - type: turn_off
-        device_id: 2db33914b4942e53a9c190cb1bc053c3
-        entity_id: switch.sonoff_1001d9bbae_1
-        domain: switch
+  - type: toggle
+    device_id: aeb01ddad29791c65fa07d1adccf99b3
+    entity_id: c0ce6c99d98b754b30ac3740c6c00528
+    domain: switch
+  mode: single
+- id: '1691696329240'
+  alias: 'Wireless Scene Switch Button 3: Single Click'
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: cb29a302c231889a9230b2721ef293c6
+    type: action
+    subtype: 3_single
+    discovery_id: 0x847127fffee7a266 action_3_single
+  condition: []
+  action:
+  - type: toggle
+    device_id: aeb01ddad29791c65fa07d1adccf99b3
+    entity_id: c0ce6c99d98b754b30ac3740c6c00528
+    domain: switch
   mode: single
 - id: '1688047602778'
   alias: 'Wireless Scene Switch Button 3: Double Click'
@@ -165,188 +172,6 @@
     entity_id: 3beb3f18675dcb8da97c13a9939733da
     domain: switch
   mode: single
-- id: '1691071975727'
-  alias: NSPanel Configuration
-  description: ''
-  use_blueprint:
-    path: Blackymas/nspanel_blueprint.yaml
-    input:
-      nspanel_name: a1ecf0ef1b5813c1b25bced6ee215388
-      date_format: '%A, %d/%m'
-      weather_entity: weather.forecast_sweet_home_jp
-      climate: climate.mitsubishi_electric_1stfloor
-      relay_1_local_fallback: true
-      left_button_entity: switch.nspanel_usw_relay_1
-      left_button_name: Dinning
-      left_button_hold_select: Default
-      relay_2_local_fallback: true
-      right_button_name: Living
-      delay: 2
-      home_value01: sensor.zhimi_mb3_fe5b_relative_humidity_2
-      home_value01_icon: mdi:water-percent
-      home_value02_icon: mdi:shield-alert-outline
-      home_value01_icon_color:
-      - 146
-      - 147
-      - 150
-      home_value01_label_color:
-      - 146
-      - 147
-      - 150
-      chip01_icon: mdi:door-sliding-open
-      button_page01_label: Lights
-      entity01: light.living_front_door_switch_right
-      entity01_icon: ''
-      entity02: light.front_house_switch_right
-      entity02_icon: ''
-      entitypages_enabled: false
-      home_value02: sensor.dscalarm_partition_1_msg
-      home_value02_icon_color:
-      - 146
-      - 147
-      - 150
-      home_value02_label_color:
-      - 146
-      - 147
-      - 150
-      home_value03: sensor.dscalarm_partition_1_status
-      home_value03_icon_color:
-      - 146
-      - 147
-      - 150
-      home_value03_label_color:
-      - 146
-      - 147
-      - 150
-      chip01: binary_sensor.dscalarm_z01_front_door
-      chip02: binary_sensor.dscalarm_z02_living_window
-      chip03: binary_sensor.dscalarm_z03_dining_door_window
-      chip04: binary_sensor.dscalarm_z04_kitchen_door
-      chip05: binary_sensor.dscalarm_z05_bathroom_window
-      chip05_icon: ''
-      qrcode_value: WIFI:S:Sweet Home JP;T:WPA;P:1212312121;H:false;;
-      qrcode_label: WIFI
-      qrcode_enabled: true
-      right_button_hold_select: Custom Action
-      right_button_hold_custom_action:
-      - type: turn_on
-        device_id: 2236526b5726b84865a07721d072d6ea
-        entity_id: 84aa575f2e3f86364ce0502ed0090179
-        domain: switch
-      - type: turn_off
-        device_id: a1ecf0ef1b5813c1b25bced6ee215388
-        entity_id: c54f4ed19a35edb0dc392e12dc0e2ba6
-        domain: switch
-      - type: turn_off
-        device_id: a1ecf0ef1b5813c1b25bced6ee215388
-        entity_id: 545d13712392722136743d7b0338122b
-        domain: switch
-      - type: turn_off
-        device_id: b8fb3b4345e146f46aee6556874f9d38
-        entity_id: 71d5bfdcfbaf4b954dbb058c8059c871
-        domain: remote
-      - device_id: 370dafb84d5aaec95001f69f900865fc
-        domain: climate
-        entity_id: 638d83c0b5a950faaa56a6ef650ef61b
-        type: set_hvac_mode
-        hvac_mode: 'off'
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 45
-          milliseconds: 0
-      - type: turn_off
-        device_id: 2236526b5726b84865a07721d072d6ea
-        entity_id: 84aa575f2e3f86364ce0502ed0090179
-        domain: switch
-      relay01_icon: mdi:pasta
-      left_button_hold_custom_action: []
-      entity03: light.garage_switch_l1
-      entity04: light.side_yard_light_switch_1_433
-      entity05: light.nspanel_usw_relay_2
-      entity05_name: Living Light
-      entity06: light.nspanel_usw_relay_1
-      entity06_name: Dinning Light
-      entity07: light.kitchen_stair_backdoor_center
-      entity07_name: Kitchen Light
-      entity04_name: Side Yard Light
-      entity03_name: Garage Light
-      entity02_name: Fence Gate Light
-      entity01_name: Front Door Light
-      entity08: light.yeelight_stripe
-      entity08_name: Kitchen Top Light
-      hold_delay: 4
-      entity_page02_label: Workspace
-      chip02_icon: mdi:window-open-variant
-      chip03_icon: mdi:door-open
-      chip04_icon: mdi:door-open
-      button_page02_label: Workspace
-      entity09: scene.start_work
-      entity09_name: Enter Workspace
-      entity09_icon: ''
-      entity10: scene.leave_workspace
-      entity10_icon: ''
-      entity10_name: Leave Workspace
-      entity11: light.workspace_light
-      entity11_name: Workspace Light
-      entity11_icon: mdi:ceiling-light
-      entity12: light.rgbcw_dream_color_strip_light
-      entity12_name: Strip Light
-      entity12_icon: mdi:led-strip-variant
-      entity13: light.dream_color_strip_neon_light
-      entity13_name: Strip Neon Light
-      entity13_icon: mdi:led-strip-variant
-      entity14: switch.nvpd_5141_socket_5
-      entity14_name: WipWup Neon Light
-      entity14_icon: mdi:led-outline
-      entity15: switch.nvpd_5141_socket_3
-      entity15_name: Buddha Shelf
-      entity15_icon: mdi:spa-outline
-      entity16_icon: mdi:bookshelf
-      entity16: switch.billy_bookcase_breaker_switch
-      entity16_name: Billy Bookcase
-      relay02_icon: mdi:sofa-outline
-      climate_button08_icon: ''
-      climate_value01: sensor.zhimi_mb3_fe5b_relative_humidity_2
-      climate_value01_icon: mdi:water-percent
-      climate_value02: sensor.zhimi_mb3_fe5b_pm25_2
-      climate_value02_icon: mdi:air-filter
-      entities_entity32_icon: ''
-      right_button_entity: switch.nspanel_usw_relay_2
-- id: '1691601978106'
-  alias: 'Wireless Scene Switch Button 1: Single Click'
-  description: ''
-  trigger:
-  - platform: device
-    domain: mqtt
-    device_id: cb29a302c231889a9230b2721ef293c6
-    type: action
-    subtype: 1_single
-    discovery_id: 0x847127fffee7a266 action_1_single
-  condition: []
-  action:
-  - type: toggle
-    device_id: fe21a17957d306d103a331a934918d42
-    entity_id: eb2e0226a05206f8b227e3bf34294841
-    domain: switch
-  mode: single
-- id: '1691696329240'
-  alias: 'Wireless Scene Switch Button 3: Single Click'
-  description: ''
-  trigger:
-  - platform: device
-    domain: mqtt
-    device_id: cb29a302c231889a9230b2721ef293c6
-    type: action
-    subtype: 3_single
-    discovery_id: 0x847127fffee7a266 action_3_single
-  condition: []
-  action:
-  - type: toggle
-    device_id: aeb01ddad29791c65fa07d1adccf99b3
-    entity_id: c0ce6c99d98b754b30ac3740c6c00528
-    domain: switch
-  mode: single
 - id: '1691696413402'
   alias: 'Wireless Scene Switch Button 4: Single Click'
   description: ''
@@ -361,10 +186,82 @@
   action:
   - type: toggle
     device_id: c46fb495627262b868b9e09950936262
-    entity_id: e3874db2a29a547988c1c29e390de309
+    entity_id: 51e71e8fe0c14a53a0149f39c933ba3a
     domain: switch
   mode: single
-- id: '1691737545167'
+- id: '1695043099374'
+  alias: NSPanel Configuration
+  description: ''
+  use_blueprint:
+    path: Blackymas/nspanel_blueprint.yaml
+    input:
+      nspanel_name: a1ecf0ef1b5813c1b25bced6ee215388
+      date_format: '%A, %d/%m'
+      weather_entity: weather.forecast_sweet_home_jp
+      indoortemp: sensor.zhimi_mb3_fe5b_temperature_2
+      chip01: binary_sensor.dscalarm_z01_front_door
+      chip01_icon: mdi:door-sliding-open
+      chip02_icon: mdi:window-open-variant
+      chip04_icon: mdi:door-sliding-open
+      chip02: binary_sensor.dscalarm_z02_living_window
+      chip03: binary_sensor.dscalarm_z03_dining_door_window
+      chip03_icon: mdi:door-sliding-open
+      chip04: binary_sensor.dscalarm_z04_kitchen_door
+      chip05: binary_sensor.dscalarm_z05_bathroom_window
+      chip05_icon: mdi:window-open
+      alarm: alarm_control_panel.safe_alarm_panel
+      climate: climate.mitsubishi_electric_1stfloor
+      climate_value01: sensor.zhimi_mb3_fe5b_relative_humidity_2
+      climate_value01_icon: mdi:water-percent
+      climate_value02: sensor.zhimi_mb3_fe5b_pm25_2
+      climate_value02_icon: mdi:air-filter
+      qrcode_value: WIFI:S:Sweet Home JP;T:WPA;P:1212312121;H:false;;
+      qrcode_label: WiFi
+      left_button_name: Living
+      left_button_entity: switch.nspanel_usw_relay_2
+      right_button_entity: switch.nspanel_usw_relay_1
+      right_button_name: Dinning
+      right_button_hold_select: Default
+- id: '1695044261557'
+  alias: Toggle Automation Micro Switch
+  description: ''
+  trigger:
+  - type: temperature
+    platform: device
+    device_id: d38f58bcea4cc4ef10c6ecadc34ec3f7
+    entity_id: 164fcaeee32158fb2222148dc74373ef
+    domain: sensor
+    above: 35
+    below: 30
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - type: is_temperature
+        condition: device
+        device_id: d38f58bcea4cc4ef10c6ecadc34ec3f7
+        entity_id: 164fcaeee32158fb2222148dc74373ef
+        domain: sensor
+        above: 35
+      sequence:
+      - type: turn_on
+        device_id: 2db33914b4942e53a9c190cb1bc053c3
+        entity_id: 8a475f6b3e0b3b7f5eca33bc7a4a6a26
+        domain: switch
+    - conditions:
+      - type: is_temperature
+        condition: device
+        device_id: d38f58bcea4cc4ef10c6ecadc34ec3f7
+        entity_id: 164fcaeee32158fb2222148dc74373ef
+        domain: sensor
+        below: 30
+      sequence:
+      - type: turn_off
+        device_id: 2db33914b4942e53a9c190cb1bc053c3
+        entity_id: 8a475f6b3e0b3b7f5eca33bc7a4a6a26
+        domain: switch
+  mode: single
+- id: '1695044323631'
   alias: Link Multiple Switches - Garage Switch
   description: ''
   use_blueprint:
@@ -372,17 +269,17 @@
     input:
       switches:
       - switch.garage_switch_l1
-      - switch.front_house_switch_center
-- id: '1691737567600'
+      - switch.1st_floor_wall_lamp_garage_fence_lamp_switch_center
+- id: '1695044364449'
   alias: Link Multiple Switches - Stair Switch
   description: ''
   use_blueprint:
     path: chettapong/link_multiple_switches.yaml
     input:
       switches:
-      - switch.stair_switch
-      - switch.kitchen_stair_backdoor_left
-- id: '1691737826082'
+      - switch.stairs_switch
+      - switch.1st_floor_stairs_kitchen_back_door_switch_left
+- id: '1695044385448'
   alias: Link Multiple Switches - Side Yard Switch
   description: ''
   use_blueprint:
@@ -391,26 +288,26 @@
       switches:
       - switch.side_yard_light_switch_1_433_switch
       - switch.garage_switch_l2
-- id: '1691738432759'
-  alias: Update Map Extractor camera
-  description: ''
-  use_blueprint:
-    path: PiotrMachowski/update_map_extractor.yaml
-    input:
-      mode_to_handle: default_when_cleaning
-      vacuum: vacuum.roidmi_v60_fa52_robot_cleaner
-      camera: camera.roidmi_eve
-- id: '1692184881900'
+- id: '1695044440851'
   alias: Link Multiple Switches - Living Switch
   description: ''
   use_blueprint:
     path: chettapong/link_multiple_switches.yaml
     input:
       switches:
-      - switch.living_front_door_switch_left
+      - switch.1st_floor_living_front_door_switch_left
       - switch.nspanel_usw_relay_2
-- id: '1692194711108'
-  alias: Storage Room Sensor Contact
+- id: '1695044484682'
+  alias: Update Map Extractor camera
+  description: ''
+  use_blueprint:
+    path: PiotrMachowski/update_map_extractor.yaml
+    input:
+      vacuum: vacuum.roidmi_v60_fa52_robot_cleaner
+      camera: camera.roidmi_eve
+      mode_to_handle: default_when_cleaning
+- id: '1695044589805'
+  alias: Storage Room Door Contact Sensor
   description: ''
   trigger:
   - type: opened
@@ -435,7 +332,7 @@
       sequence:
       - type: turn_on
         device_id: 8151eb2acd9aae8c4a51153b41f511c8
-        entity_id: 08b0b037447f27d89d5c16500967aedf
+        entity_id: aaebdf43be297517042c466dadf10958
         domain: light
     - conditions:
       - type: is_not_open
@@ -446,6 +343,32 @@
       sequence:
       - type: turn_off
         device_id: 8151eb2acd9aae8c4a51153b41f511c8
-        entity_id: 08b0b037447f27d89d5c16500967aedf
+        entity_id: aaebdf43be297517042c466dadf10958
         domain: light
+  mode: single
+- id: '1695044707208'
+  alias: Turn off device at 7.00 am
+  description: ''
+  trigger:
+  - platform: time
+    at: 07:00:00
+  condition: []
+  action:
+  - parallel:
+    - type: turn_off
+      device_id: fc9233a09eda558fa6dc10f2e1dd23e4
+      entity_id: 1d25131ddf49ad0ab6a8986fce661be5
+      domain: light
+    - type: turn_off
+      device_id: f3a0f16271e1f694b713f92fc26bd6aa
+      entity_id: 258037188097d5d3f791440d9b5396f1
+      domain: light
+    - type: turn_off
+      device_id: 8c149041ca56a72c0a3a7795196ff5b0
+      entity_id: 207e35fbb50e1000fd421385907ae286
+      domain: light
+    - type: turn_off
+      device_id: a798ce9b53a6c4ea51ca73a3eb7eb842
+      entity_id: 518ad641f3fa0c992c555f88ff034030
+      domain: light
   mode: single

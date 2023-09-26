@@ -222,6 +222,17 @@
       right_button_entity: switch.nspanel_usw_relay_1
       right_button_name: Dinning
       right_button_hold_select: Default
+      entity01: scene.go_upstairs
+      entity02: scene.start_work
+      entity02_confirm: true
+      entity01_confirm: true
+      entity01_name: Go Upstairs
+      entity02_name: Enter Workspace
+      entity02_icon: mdi:desk-lamp
+      entity01_icon: mdi:stairs-up
+      entity03: scene.leave_workspace
+      entity03_name: Leave Workspace
+      entity03_icon: mdi:desk-lamp-off
 - id: '1695044261557'
   alias: Toggle Automation Micro Switch
   description: ''

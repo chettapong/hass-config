@@ -117,75 +117,79 @@ google_assistant:
         - พัดลมห้องทำงาน
         - Standing fan
 
-    ## Light
-    light.front_house_switch_left:
-      name: โคมไฟกิ่งหน้าบ้าน
+    ## Light: Backyard
+    light.1st_floor_stairs_kitchen_back_door_switch_right:
+      name: ไฟหลังบ้าน
       aliases:
-        - Front Wall Light
-    light.front_house_switch_right:
+        - Backdoor Light
+
+    ## Light: Front yard
+    light.1st_floor_living_front_door_switch_right:
+      name: ไฟประตูหน้าบ้าน
+      aliases:
+        - Front Door Light
+    light.1st_floor_wall_lamp_garage_fence_lamp_switch_right:
       name: ไฟประตูรั้ว
       aliases:
         - Fence Gate Light
+    light.1st_floor_wall_lamp_garage_fence_lamp_switch_left:
+      name: โคมไฟกิ่งหน้าบ้าน
+      aliases:
+        - Front Wall Light
     light.garage_switch_l1:
       name: ไฟหลังคาจอดรถ
       aliases:
         - Garage Light
-    light.living_front_door_switch_left:
-      name: ไฟหน้าทีวี
-      aliases:
-        - Living light
-        - TV light
-    light.living_front_door_switch_right:
-      name: ไฟประตูหน้าบ้าน
-      aliases:
-        - Front Door Light
-    light.dining_switch:
-      name: ไฟโต๊ะกินข้าว
-      aliases:
-        - ไฟโต๊ะทานข้าว
-        - Dining Light
-    light.stair_switch:
-      name: ไฟบันได
-      aliases:
-        - Stair Light
-    light.kitchen_stair_backdoor_center:
-      name: ไฟห้องครัว
-      aliases:
-        - Kitchen light
-    light.kitchen_stair_backdoor_right:
-      name: ไฟหลังบ้าน
-      aliases:
-        - Backdoor Light
-    light.workspace_light:
-      name: ไฟห้องทำงาน
-      aliases:
-        - Workspace light
+
+    ## Light: 1st floor
     light.nspanel_usw_relay_1:
       name: ไฟโต๊ะกินข้าว
       aliases:
         - ไฟโต๊ะทานข้าว
         - Dining Light
-    light.nspanel_usw_relay_2:
+    light.1st_floor_living_front_door_switch_left:
+      name: ไฟหน้าทีวี
       aliases:
-        - ไฟหน้าทีวี
+        - Living light
+        - TV light
+
+    ## Light: Kitchen
+    light.1st_floor_stairs_kitchen_back_door_switch_center:
+      name: ไฟห้องครัว
+      aliases:
+        - Kitchen light
+
+    ## Light: Staircase
+    light.stairs_switch:
+      name: ไฟบันได
+      aliases:
+        - Stair Light
+
+    ## Light: Workspace
+    light.workspace_switch:
+      name: ไฟห้องทำงาน
+      aliases:
+        - Workspace light
+
+    ## Light: Bedroom
     light.controller_rgb_ir_cd8027:
       aliases:
         - Bed light
         - ไฟเตียง
 
     # Switch
-    switch.smart_plug_desk:
+    switch.workspace_smart_plug_sweetdesk:
       name: ปลั๊กไฟโต๊ะทำงาน
       aliases:
         - Desk outlet
-    switch.smart_plug_ups:
+    switch.workspace_smart_plug_ups:
       name: ปลั๊กเครื่องสำรองไฟ
       aliases:
         - UPS outlet
-    switch.smart_plug_refrigerator:
-      name: ปลั๊กตู้เย็น
-      aliases:
-        - Refrigerator outlet
+    # switch.smart_plug_refrigerator:
+    #   name: ปลั๊กตู้เย็น
+    #   aliases:
+    #     - Refrigerator outlet
 
     # Vacuum
     vacuum.roidmi_v60_fa52_robot_cleaner:

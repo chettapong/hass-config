@@ -460,3 +460,9 @@ switch:
           disconnectKeybus();
   - platform: restart
     id: restart_switch
+
+sensor:
+  ##### WIFI Signal stregth
+  - name: $systemName RSSI
+    platform: wifi_signal
+    update_interval: 60s

@@ -29,19 +29,31 @@ substitutions:
   # dscReadPin: "21"
   # dscWritePin: "18"
 
-  #ESP8266 Pins (D1, D2, D8 (GPIO 5, 4, 15))
-  dscClockPin: "5" 
-  dscReadPin: "4"
-  dscWritePin: "15"
+  # #ESP8266 Pins (D1, D2, D8 (GPIO 5, 4, 15))
+  # dscClockPin: "5" 
+  # dscReadPin: "4"
+  # dscWritePin: "15"
+
+  #ESP32 Wemos D1 Mini Pins (D1, D2, D8 (GPIO 22, 21, 5))
+  dscClockPin: "22" 
+  dscReadPin: "21"
+  dscWritePin: "5"
 
   maxZones: "6" # maximum amount of zones your system supports
 
 esphome:
   name: $systemName
+  # ESP32
   # platform: ESP32
   # board: nodemcu-32s
-  platform: ESP8266
-  board: nodemcuv2
+
+  # ESP8266
+  # platform: ESP8266
+  # board: nodemcuv2
+
+  # ESP32 Wemos D1 Mini
+  platform: ESP32
+  board: wemos_d1_mini32
 
   includes:
     # subdirectory path where custom component *.h and *.cpp files are located
@@ -49,19 +61,19 @@ esphome:
 
   #ESP32 only .  Calls a public function within the custom component above. In this case syncs the time
   # to the panel 30 seconds after startup
-  # on_boot:
-  #   priority: -100 #everything initialized
-  #   then:
-  #     - delay: 30s
-  #     - lambda: |-
-  #         DSCkeybus->set_panel_time();
+  on_boot:
+    priority: -100 #everything initialized
+    then:
+      - delay: 30s
+      - lambda: |-
+          DSCkeybus->set_panel_time();
 
 #ESP32 only .  Syncs  the time with the panel every hour
-#interval:
-#  - interval: 3600s
-#    then:
-#      - lambda: |-
-#          DSCkeybus->set_panel_time();
+interval:
+ - interval: 3600s
+   then:
+     - lambda: |-
+         DSCkeybus->set_panel_time();
 
 # add or remove any zone you need. Please ensure you also add/remove the corresonponding case statement above
 # change the name to match your own zone configurations
@@ -114,9 +126,9 @@ status_led:
     inverted: no
 
 #comment if using ESP8266 to conserve memory
-# time:
-#   - platform: sntp
-#     id: sntp_time
+time:
+  - platform: sntp
+    id: sntp_time
 
 custom_component:
   - id: dsckeybus

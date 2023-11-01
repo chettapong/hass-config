@@ -29,29 +29,25 @@ substitutions:
   # dscReadPin: "21"
   # dscWritePin: "18"
 
-  #ESP8266 Pins (D1, D2, D8 (GPIO 5, 4, 15))
+  # #ESP8266 Pins (D1, D2, D8 (GPIO 5, 4, 15))
   # dscClockPin: "5" 
   # dscReadPin: "4"
   # dscWritePin: "15"
 
-  #ESP32 Wemos D1 Mini Pins (D1, D2, D8 (GPIO 22, 21, 5))
+  #ESP32 D1 Mini Pins (D1, D2, D8 (GPIO 22, 21, 5))
   dscClockPin: "22" 
   dscReadPin: "21"
   dscWritePin: "5"
 
   maxZones: "6" # maximum amount of zones your system supports
 
-#ESP8266
-# esp8266:
-#   board: nodemcuv2
-
-#ESP32
-esp32:
-  board: wemos_d1_mini32 # default 'nodemcu-32s
-
 esphome:
   name: $systemName
-  friendly_name: DSC Security System
+  platform: ESP32
+  # board: nodemcu-32s
+  board: wemos_d1_mini32
+  # platform: ESP8266
+  # board: nodemcuv2
 
   includes:
     # subdirectory path where custom component *.h and *.cpp files are located

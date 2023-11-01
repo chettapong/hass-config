@@ -1,0 +1,60 @@
+substitutions:
+  # ## usage of secrets-file ## -> comment in ###### Change ME ######
+  device_name: "resin-art-display-wood-led" # Wird im Blueprint benötigt!
+  wifi_ssid: !secret wifi_ssid # add in your esphome secrets file.
+  wifi_password: !secret wifi_password # add in your esphome secrets file. -> per default this is also used for ota_password and web_password
+  # ota_password: !secret _ota_password # add in your esphome secrets file. - manual change in code required to activate
+  # web_password: !secret _web_password # add in your esphome secrets file. - manual change in code required to activate
+  # api_password: !secret _api_password # add in your esphome secrets file. - manual change in code required to activate
+
+esphome:
+  name: ${device_name}
+  friendly_name: Resin Art Display Wood LED
+
+esp8266:
+  board: esp01_1m
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "6myZ8TRLpI8bSreZfFyRkX1mLz7OFdRHxBBgrXbX8Ow="
+
+ota:
+  password: "9c492db2e274209c0b63f725a677f919"
+
+wifi:
+  ssid: ${wifi_ssid}
+  password: ${wifi_password}
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "${device_name} "
+    password: ${wifi_password}
+
+web_server:
+  port: 80
+  auth:
+    username: admin
+    password: ${wifi_password}
+    ##### advanced config - change to use web_password #####
+    # password: ${web_password}
+
+captive_portal:
+
+light:
+  - platform: neopixelbus
+    type: GRB
+    variant: WS2812
+    pin: GPIO0
+    num_leds: 3
+    name: "NeoPixel Light"
+
+sensor:  
+
+  ##### WIFI Signal stregth
+  - name: ${device_name} RSSI
+    platform: wifi_signal
+    update_interval: 60s

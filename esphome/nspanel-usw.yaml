@@ -60,6 +60,7 @@ wifi:
 ##### ESPHOME CONFIGURATION #####
 esphome:
   name: ${device_name}
+  friendly_name: NSPanel
   min_version: 2023.5.0
 
 ##### TYPE OF ESP BOARD #####

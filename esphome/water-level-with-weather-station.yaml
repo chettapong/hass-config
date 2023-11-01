@@ -1,0 +1,235 @@
+substitutions:
+  # ## usage of secrets-file ## -> comment in ###### Change ME ######
+  device_name: "water-level-weather-station" # Wird im Blueprint benötigt!
+  wifi_ssid: !secret wifi_ssid # add in your esphome secrets file.
+  wifi_password: !secret wifi_password # add in your esphome secrets file. -> per default this is also used for ota_password and web_password
+  # ota_password: !secret _ota_password # add in your esphome secrets file. - manual change in code required to activate
+  # web_password: !secret _web_password # add in your esphome secrets file. - manual change in code required to activate
+  # api_password: !secret _api_password # add in your esphome secrets file. - manual change in code required to activate
+
+  #ESP32 Pins
+  sdaPin: "21"
+  sclPin: "22"
+  rainWaterDetectionSensorPin: "35"
+  rainWaterDetectionAnalogPin: "32"
+  liquidDetection_01Pin: "19"
+  liquidDetection_02Pin: "18"
+  liquidDetection_03Pin: "17"
+  liquidDetection_04Pin: "16"
+  sensorSwitchingPin: "15"
+  batteryVoltagePin: "34"
+
+  #ESP8266 Pins
+  # sdaPin: "4" # D2
+  # sclPin: "5" # D1
+  # rainWaterDetectionSensorPin: "16" # D0
+  # rainWaterDetectionAnalogPin: "A0" # A0
+  # liquidDetection_01Pin: "14" # D5
+  # liquidDetection_02Pin: "12" # D6
+  # liquidDetection_03Pin: "13" # D7
+  # liquidDetection_04Pin: "15" # D8
+
+esphome:
+  name: ${device_name}
+  friendly_name: Water Level with Weather Station
+
+#ESP8266
+# esp8266:
+#   board: d1_mini
+
+#ESP32
+esp32:
+  board: nodemcu-32s
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "9UhvlDy+dMsTb6/uPThYr9cYEOibd+1L0cC0guvDVao="
+
+ota:
+  password: "3554b45db4d502758b49d3f777f58a54"
+
+wifi:
+  ssid: ${wifi_ssid}
+  password: ${wifi_password}
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "${device_name} "
+    password: ${wifi_password}
+
+web_server:
+  port: 80
+  auth:
+    username: admin
+    password: ${wifi_password}
+    ##### advanced config - change to use web_password #####
+    # password: ${web_password}
+
+captive_portal:
+
+# Component
+i2c:
+  sda: ${sdaPin}
+  scl: ${sclPin}
+  scan: true
+  id: bus_a
+
+output:
+  ##### Sensor Switching
+  - platform: gpio
+    pin: ${sensorSwitchingPin}
+    id: sensor_switching
+
+switch:
+  ##### Sensor Switching
+  - platform: template
+    name: "${device_name} sensor_switching"
+    id: sensor_switching_enable
+    optimistic: on
+
+interval:
+  - interval: 1min
+    then:
+      if:
+        condition:
+          switch.is_on: sensor_switching_enable
+        then:
+          - output.turn_on: sensor_switching
+          - delay: 5s
+          - lambda: |-
+              id(sensor_sht3xd).update();
+              id(sensor_rain_detection_analog).update();
+          - delay: 10s
+          - output.turn_off: sensor_switching
+
+binary_sensor:
+  ##### Rain / Water Detection Sensor DO
+  - platform: gpio
+    pin:
+      number: ${rainWaterDetectionSensorPin}
+      mode:
+        input: true
+        # pulldown: true # comment if using ESP32
+      inverted: true
+    device_class: moisture
+    name: "${device_name} rain_detection"
+
+  ##### XKC-Y25-V
+  - platform: gpio
+    pin:
+      number: ${liquidDetection_01Pin}
+      mode:
+        input: true
+    device_class: moisture
+    name: "${device_name} liquid_detection_01"
+    filters:
+      - delayed_on: 10ms
+
+  - platform: gpio
+    pin:
+      number: ${liquidDetection_02Pin}
+      mode:
+        input: true
+    device_class: moisture
+    name: "${device_name} liquid_detection_02"
+    filters:
+      - delayed_on: 10ms
+
+  - platform: gpio
+    pin:
+      number: ${liquidDetection_03Pin}
+      mode:
+        input: true
+    device_class: moisture
+    name: "${device_name} liquid_detection_03"
+    filters:
+      - delayed_on: 10ms
+
+  - platform: gpio
+    pin:
+      number: ${liquidDetection_04Pin}
+      mode:
+        input: true
+    device_class: moisture
+    name: "${device_name} liquid_detection_04"
+    filters:
+      - delayed_on: 10ms
+
+sensor:
+  ##### SHT30
+  - platform: sht3xd
+    id: sensor_sht3xd
+    temperature:
+      name: "${device_name} temperature"
+    humidity:
+      name: "${device_name} humidity"
+    address: 0x44
+    update_interval: never
+
+  ##### Rain / Water Detection Sensor AO
+  - platform: adc
+    id: sensor_rain_detection_analog
+    pin: ${rainWaterDetectionAnalogPin}
+    name: "${device_name} rain_detection analog"
+    # filters:
+    # - lambda: |-
+    #     auto sensor_min = 1176425;
+    #     auto sensor_max = 1279801;
+    #     auto first_mass = 0.0;
+    #     auto second_mass = 4;
+
+    #     auto r = map(x, sensor_min, sensor_max, first_mass, second_mass);
+    #     return r
+    #     # if (r > 0) return r;
+    #     # return 0;
+    update_interval: never
+
+  ##### WIFI Signal stregth
+  - name: ${device_name} RSSI
+    platform: wifi_signal
+    update_interval: 60s
+
+  #ESP32 only
+  - platform: adc
+    id: batt_voltage
+    pin: ${batteryVoltagePin}
+    accuracy_decimals: 3
+    name: ${device_name} Battery voltage
+  - platform: copy
+    source_id: batt_voltage
+    id: batt_voltage_calculated
+    accuracy_decimals: 3
+    filters:
+    - offset: -0.11
+    - multiply: 5.0
+    name: ${device_name} Battery voltage calculated
+    # on_value_range:
+    #   below: 3.00
+    #   then:
+    #     - switch.turn_on:
+    #         id: shutdown1
+
+  #Convert the Voltage to a battery  level (%)
+  - platform: copy
+    source_id: batt_voltage_calculated
+    id: batt_level
+    icon: "mdi:battery"
+    name: ${device_name} Battery Level
+    unit_of_measurement: '%'
+    accuracy_decimals: 1
+    filters:
+      - calibrate_linear:
+      # Map from voltage to Battery level
+          - 3 -> 0
+          - 3.9 -> 100
+      #Handle/cap boundaries
+      - lambda: |
+          if (x < 0) return 0;
+          else if (x > 100) return 100;
+          else return (x);
+      - delta: 0.5 #Only send values to HA if they change
+      - throttle: 30s #Limit values sent to Ha

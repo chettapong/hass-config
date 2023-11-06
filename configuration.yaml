@@ -118,7 +118,7 @@ google_assistant:
         - Standing fan
 
     ## Light: Backyard
-    light.1st_floor_stairs_kitchen_back_door_switch_right:
+    light.1st_floor_stairs_kitchen_back_door_switch_l3:
       name: ไฟหลังบ้าน
       aliases:
         - Backdoor Light
@@ -154,7 +154,7 @@ google_assistant:
         - TV light
 
     ## Light: Kitchen
-    light.1st_floor_stairs_kitchen_back_door_switch_center:
+    light.1st_floor_stairs_kitchen_back_door_switch_l1:
       name: ไฟห้องครัว
       aliases:
         - Kitchen light

@@ -149,7 +149,7 @@
   action:
   - type: turn_off
     device_id: fe21a17957d306d103a331a934918d42
-    entity_id: c9df5bd1ee2910b640ed8bffcfe7ce40
+    entity_id: 82a3aaf1c8f911b8ad2fcaf9209b3cd9
     domain: light
   - type: turn_off
     device_id: 2c21cd3b125bca6dc285096fb7076ef8
@@ -233,6 +233,9 @@
       entity03: scene.leave_workspace
       entity03_name: Leave Workspace
       entity03_icon: mdi:desk-lamp-off
+      entity04: light.garage_switch_l1
+      entity04_name: Garage
+      entity04_icon: mdi:garage
 - id: '1695044261557'
   alias: Toggle Automation Micro Switch
   description: ''
@@ -289,7 +292,7 @@
     input:
       switches:
       - switch.stairs_switch
-      - switch.1st_floor_stairs_kitchen_back_door_switch_left
+      - switch.1st_floor_stairs_kitchen_back_door_switch_l1
 - id: '1695044385448'
   alias: Link Multiple Switches - Side Yard Switch
   description: ''
@@ -367,10 +370,6 @@
   action:
   - parallel:
     - type: turn_off
-      device_id: fc9233a09eda558fa6dc10f2e1dd23e4
-      entity_id: 1d25131ddf49ad0ab6a8986fce661be5
-      domain: light
-    - type: turn_off
       device_id: f3a0f16271e1f694b713f92fc26bd6aa
       entity_id: 258037188097d5d3f791440d9b5396f1
       domain: light
@@ -381,5 +380,9 @@
     - type: turn_off
       device_id: a798ce9b53a6c4ea51ca73a3eb7eb842
       entity_id: 518ad641f3fa0c992c555f88ff034030
+      domain: light
+    - type: turn_off
+      device_id: fc9233a09eda558fa6dc10f2e1dd23e4
+      entity_id: 8850a40b44ae3a3fd1856232ede0ea47
       domain: light
   mode: single

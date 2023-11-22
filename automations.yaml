@@ -189,53 +189,6 @@
     entity_id: 51e71e8fe0c14a53a0149f39c933ba3a
     domain: switch
   mode: single
-- id: '1695043099374'
-  alias: NSPanel Configuration
-  description: ''
-  use_blueprint:
-    path: Blackymas/nspanel_blueprint.yaml
-    input:
-      nspanel_name: a1ecf0ef1b5813c1b25bced6ee215388
-      date_format: '%A, %d/%m'
-      weather_entity: weather.forecast_sweet_home_jp
-      indoortemp: sensor.zhimi_mb3_fe5b_temperature_2
-      chip01: binary_sensor.dscalarm_z01_front_door
-      chip01_icon: mdi:door-sliding-open
-      chip02_icon: mdi:window-open-variant
-      chip04_icon: mdi:door-sliding-open
-      chip02: binary_sensor.dscalarm_z02_living_window
-      chip03: binary_sensor.dscalarm_z03_dining_door_window
-      chip03_icon: mdi:door-sliding-open
-      chip04: binary_sensor.dscalarm_z04_kitchen_door
-      chip05: binary_sensor.dscalarm_z05_bathroom_window
-      chip05_icon: mdi:window-open
-      alarm: alarm_control_panel.safe_alarm_panel
-      climate: climate.mitsubishi_electric_1stfloor
-      climate_value01: sensor.zhimi_mb3_fe5b_relative_humidity_2
-      climate_value01_icon: mdi:water-percent
-      climate_value02: sensor.zhimi_mb3_fe5b_pm25_2
-      climate_value02_icon: mdi:air-filter
-      qrcode_value: WIFI:S:Sweet Home JP;T:WPA;P:1212312121;H:false;;
-      qrcode_label: WiFi
-      left_button_name: Living
-      left_button_entity: switch.nspanel_usw_relay_2
-      right_button_entity: switch.nspanel_usw_relay_1
-      right_button_name: Dinning
-      right_button_hold_select: Default
-      entity01: scene.go_upstairs
-      entity02: scene.start_work
-      entity02_confirm: true
-      entity01_confirm: true
-      entity01_name: Go Upstairs
-      entity02_name: Enter Workspace
-      entity02_icon: mdi:desk-lamp
-      entity01_icon: mdi:stairs-up
-      entity03: scene.leave_workspace
-      entity03_name: Leave Workspace
-      entity03_icon: mdi:desk-lamp-off
-      entity04: light.garage_switch_l1
-      entity04_name: Garage
-      entity04_icon: mdi:garage
 - id: '1695044261557'
   alias: Toggle Automation Micro Switch
   description: ''
@@ -390,3 +343,61 @@
       entity_id: 6a96632213cf17cb883e1191707b5127
       domain: switch
   mode: single
+- id: '1700664246656'
+  alias: NSPanel Configuration
+  description: ''
+  use_blueprint:
+    path: Blackymas/nspanel_blueprint.yaml
+    input:
+      nspanel_name: a1ecf0ef1b5813c1b25bced6ee215388
+      date_format: '%A, %d/%m'
+      weather_entity: weather.forecast_sweet_home_jp
+      outdoortemp: sensor.water_level_weather_station_temperature_2
+      indoortemp: sensor.room_temperature_2
+      chip01: binary_sensor.dscalarm_z01_front_door
+      chip01_icon: mdi:door-sliding-open
+      chip02_icon: mdi:window-open-variant
+      chip04_icon: mdi:door-sliding-open
+      chip02: binary_sensor.dscalarm_z02_living_window
+      chip03: binary_sensor.dscalarm_z03_dining_door_window
+      chip03_icon: mdi:door-sliding-open
+      chip04: binary_sensor.dscalarm_z04_kitchen_door
+      chip05: binary_sensor.dscalarm_z05_bathroom_window
+      chip05_icon: mdi:window-open
+      home_custom_button01: light.garage_switch_l1
+      home_custom_button01_icon: mdi:garage
+      alarm: alarm_control_panel.safe_alarm_panel
+      climate: climate.mitsubishi_electric_1stfloor
+      climate_value01: sensor.zhimi_mb3_fe5b_relative_humidity_2
+      climate_value01_icon: mdi:water-percent
+      climate_value02: sensor.zhimi_mb3_fe5b_pm25_2
+      climate_value02_icon: mdi:air-filter
+      qrcode_value: WIFI:S:Sweet Home JP;T:WPA;P:1212312121;H:false;;
+      qrcode_label: WiFi
+      left_button_name: Living
+      left_button_entity: switch.nspanel_usw_relay_2
+      right_button_name: Dinning
+      right_button_entity: switch.nspanel_usw_relay_1
+      entity01: scene.go_upstairs
+      entity02: scene.start_work
+      entity01_confirm: true
+      entity02_confirm: true
+      entity01_icon: mdi:stairs-up
+      entity01_name: Go Upstairs
+      entity03: scene.leave_workspace
+      entity03_name: Leave Workspace
+      entity03_icon: mdi:desk-lamp-off
+      entity02_icon: mdi:desk-lamp
+      entity02_name: Enter Workspace
+      entity04_name: Garage
+      entity04: light.garage_switch_l1
+      entity04_icon: mdi:garage
+      entity05: light.yeelight_stripe
+      entity05_name: LED Under Cabinet Light
+      entity05_icon: mdi:led-strip-variant
+      entity03_confirm: true
+      entity06: light.1st_floor_wall_lamp_garage_fence_lamp_switch_right
+      entity06_name: Fence Lamp
+      entity06_icon: mdi:fence
+      entitypages_enabled: false
+      show_while_loading: true

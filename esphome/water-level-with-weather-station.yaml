@@ -8,16 +8,19 @@ substitutions:
   # api_password: !secret _api_password # add in your esphome secrets file. - manual change in code required to activate
 
   #ESP32 Pins
-  sdaPin: "21"
-  sclPin: "22"
-  rainWaterDetectionSensorPin: "35"
-  rainWaterDetectionAnalogPin: "32"
-  liquidDetection_01Pin: "19"
-  liquidDetection_02Pin: "18"
-  liquidDetection_03Pin: "17"
-  liquidDetection_04Pin: "16"
-  sensorSwitchingPin: "15"
-  batteryVoltagePin: "34"
+  sdaPin: GPIO21
+  sclPin: GPIO22
+  rainWaterDetectionSensorPin: GPIO35
+  rainWaterDetectionAnalogPin: GPIO32
+  waterFlowMeterSensorPin: GPIO33
+  liquidDetection_01Pin: GPIO19
+  liquidDetection_02Pin: GPIO18
+  liquidDetection_03Pin: GPIO17
+  liquidDetection_04Pin: GPIO16
+  sensorSwitchingPin: GPIO15
+  solarVoltagePin: GPIO39
+  batteryVoltagePin: GPIO34
+  
 
   #ESP8266 Pins
   # sdaPin: "4" # D2
@@ -32,6 +35,10 @@ substitutions:
 esphome:
   name: ${device_name}
   friendly_name: Water Level with Weather Station
+  on_boot:
+    priority: 600
+    then:
+      - output.turn_on: output_sensor_switching
 
 #ESP8266
 # esp8266:
@@ -58,7 +65,7 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "${device_name} "
+    ssid: "${device_name}"
     password: ${wifi_password}
 
 web_server:
@@ -82,29 +89,47 @@ output:
   ##### Sensor Switching
   - platform: gpio
     pin: ${sensorSwitchingPin}
-    id: sensor_switching
-
+    id: output_sensor_switching
+    
 switch:
-  ##### Sensor Switching
+  ##### Switch Shutdown
+  - platform: shutdown
+    id: switch_shutdown
+    name: "${device_name} Shutdown"
+
+
+  ##### Sensor Enable Output
+  - platform: output
+    restore_mode: ALWAYS_ON
+    output: 'output_sensor_switching'
+    name: "${device_name} Sensor Enable Output"
+
+  ##### Sensor Enable Switching
   - platform: template
-    name: "${device_name} sensor_switching"
-    id: sensor_switching_enable
+    id: switch_sensor_switching_enable
     optimistic: on
+    restore_mode: ALWAYS_ON
+    name: "${device_name} Sensor Enable Switching"
 
 interval:
-  - interval: 1min
+  - interval: 5min
     then:
       if:
         condition:
-          switch.is_on: sensor_switching_enable
+          switch.is_on: switch_sensor_switching_enable
         then:
-          - output.turn_on: sensor_switching
+          - output.turn_on: output_sensor_switching
           - delay: 5s
           - lambda: |-
               id(sensor_sht3xd).update();
-              id(sensor_rain_detection_analog).update();
+              id(sensor_bh1750).update();
+
+          # id(binary_sensor_liquid_detection_01).update();
+          # id(binary_sensor_liquid_detection_02).update();
+          # id(binary_sensor_liquid_detection_03).update();
+          # id(binary_sensor_liquid_detection_04).update();
           - delay: 10s
-          - output.turn_off: sensor_switching
+          - output.turn_off: output_sensor_switching
 
 binary_sensor:
   ##### Rain / Water Detection Sensor DO
@@ -116,65 +141,77 @@ binary_sensor:
         # pulldown: true # comment if using ESP32
       inverted: true
     device_class: moisture
-    name: "${device_name} rain_detection"
+    name: "${device_name} Rain Detection"
 
   ##### XKC-Y25-V
   - platform: gpio
+    id: binary_sensor_liquid_detection_01
     pin:
       number: ${liquidDetection_01Pin}
       mode:
         input: true
     device_class: moisture
-    name: "${device_name} liquid_detection_01"
     filters:
       - delayed_on: 10ms
+    name: "${device_name} Liquid Detection 01"
 
   - platform: gpio
+    id: binary_sensor_liquid_detection_02
     pin:
       number: ${liquidDetection_02Pin}
       mode:
         input: true
     device_class: moisture
-    name: "${device_name} liquid_detection_02"
     filters:
       - delayed_on: 10ms
+    name: "${device_name} Liquid Detection 02"
 
   - platform: gpio
+    id: binary_sensor_liquid_detection_03
     pin:
       number: ${liquidDetection_03Pin}
       mode:
         input: true
     device_class: moisture
-    name: "${device_name} liquid_detection_03"
     filters:
       - delayed_on: 10ms
+    name: "${device_name} Liquid Detection 03"
 
   - platform: gpio
+    id: binary_sensor_liquid_detection_04
     pin:
       number: ${liquidDetection_04Pin}
       mode:
         input: true
     device_class: moisture
-    name: "${device_name} liquid_detection_04"
     filters:
       - delayed_on: 10ms
+    name: "${device_name} Liquid Detection 04"
 
 sensor:
   ##### SHT30
   - platform: sht3xd
     id: sensor_sht3xd
     temperature:
-      name: "${device_name} temperature"
+      name: "${device_name} Temperature"
     humidity:
-      name: "${device_name} humidity"
+      name: "${device_name} Humidity"
     address: 0x44
+    update_interval: never
+
+
+  ##### BH1750 Light Intensity
+  - platform: bh1750
+    id: sensor_bh1750
+    name: "${device_name} Illuminance"
+    address: 0x23
     update_interval: never
 
   ##### Rain / Water Detection Sensor AO
   - platform: adc
     id: sensor_rain_detection_analog
     pin: ${rainWaterDetectionAnalogPin}
-    name: "${device_name} rain_detection analog"
+    attenuation: 11db
     # filters:
     # - lambda: |-
     #     auto sensor_min = 1176425;
@@ -186,7 +223,24 @@ sensor:
     #     return r
     #     # if (r > 0) return r;
     #     # return 0;
-    update_interval: never
+    name: "${device_name} Rain Detection Analog"
+
+
+  ##### FS300A Water Flow Meter Sensor
+  - platform: pulse_counter
+    id: pulse_irrigation
+    pin: ${waterFlowMeterSensorPin}
+    name: "${device_name} Water Flow Meter Pulses"
+  
+  - platform: pulse_counter
+    pin: ${waterFlowMeterSensorPin}
+    unit_of_measurement: 'L/min'
+    filters:
+      # The water flow sensor outputs pulse proportional to the water flow with: Pulse Frequency = Flow* 5.5.That is,
+      # if the output frequency is 48, then the water flow: 48/5.5= 8.72(L/min)
+      - lambda: |-
+          return x / 5.5;
+    name: "${device_name} Water Flow Meter"
 
   ##### WIFI Signal stregth
   - name: ${device_name} RSSI
@@ -195,30 +249,36 @@ sensor:
 
   #ESP32 only
   - platform: adc
-    id: batt_voltage
-    pin: ${batteryVoltagePin}
-    accuracy_decimals: 3
-    name: ${device_name} Battery voltage
-  - platform: copy
-    source_id: batt_voltage
-    id: batt_voltage_calculated
+    id: solar_voltage
+    pin: ${solarVoltagePin}
+    attenuation: 11db
     accuracy_decimals: 3
     filters:
-    - offset: -0.11
-    - multiply: 5.0
-    name: ${device_name} Battery voltage calculated
+    - multiply: 2.96537
+    name: ${device_name} Solar Panel Voltage
+    update_interval: 60s
+
+  - platform: adc
+    id: batt_voltage
+    pin: ${batteryVoltagePin}
+    attenuation: 11db
+    accuracy_decimals: 3
+    filters:
+    - multiply: 2.96537
+    name: ${device_name} Battery Voltage
+    update_interval: 60s
     # on_value_range:
     #   below: 3.00
     #   then:
     #     - switch.turn_on:
-    #         id: shutdown1
+    #         id: switch_shutdown
+
 
   #Convert the Voltage to a battery  level (%)
   - platform: copy
-    source_id: batt_voltage_calculated
+    source_id: batt_voltage
     id: batt_level
     icon: "mdi:battery"
-    name: ${device_name} Battery Level
     unit_of_measurement: '%'
     accuracy_decimals: 1
     filters:
@@ -233,3 +293,51 @@ sensor:
           else return (x);
       - delta: 0.5 #Only send values to HA if they change
       - throttle: 30s #Limit values sent to Ha
+    name: ${device_name} Battery Level
+
+  ##### human readable uptime sensor output to the text sensor above
+  - platform: uptime
+    name: ${device_name} Uptime in Days
+    id: uptime_sensor_days
+    update_interval: 60s
+    on_raw_value:
+      then:
+        - text_sensor.template.publish:
+            id: uptime_human
+            state: !lambda |-
+              int seconds = round(id(uptime_sensor_days).raw_state);
+              int days = seconds / (24 * 3600);
+              seconds = seconds % (24 * 3600);
+              int hours = seconds / 3600;
+              seconds = seconds % 3600;
+              int minutes = seconds /  60;
+              seconds = seconds % 60;
+              return (
+                (days ? String(days) + "d " : "") +
+                (hours ? String(hours) + "h " : "") +
+                (minutes ? String(minutes) + "m " : "") +
+                (String(seconds) + "s")
+              ).c_str();
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+
+##### Text sensors with general information.
+text_sensor:
+  ##### Expose ESPHome version as sensor.
+  - platform: version
+    name: $device_name Version
+
+  ##### Expose WiFi information as sensors.
+  - platform: wifi_info
+    ip_address:
+      name: $device_name IP
+    bssid:
+      name: $device_name BSSID
+
+  ##### human readable update text sensor from sensor:uptime
+  - platform: template
+    name: Uptime Human Readable
+    id: uptime_human
+    icon: mdi:clock-start

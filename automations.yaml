@@ -383,6 +383,10 @@
       domain: light
     - type: turn_off
       device_id: fc9233a09eda558fa6dc10f2e1dd23e4
-      entity_id: 8850a40b44ae3a3fd1856232ede0ea47
+      entity_id: 52510be54f9b11f75a65b53cce948b7e
       domain: light
+    - type: turn_off
+      device_id: ea85dc1d24076f33df5f973e3431c767
+      entity_id: 6a96632213cf17cb883e1191707b5127
+      domain: switch
   mode: single

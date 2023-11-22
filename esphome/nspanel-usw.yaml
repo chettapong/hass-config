@@ -1,6 +1,6 @@
 substitutions:
   ###### CHANGE ME START ######
-  device_name: "YOUR_NSPANEL_NAME"
+  device_name: "nspanel-usw"
   wifi_ssid: !secret wifi_ssid
   wifi_password: !secret wifi_password
 
@@ -21,7 +21,7 @@ packages:
       # - nspanel_esphome_advanced.yaml # activate advanced (legacy) elements - can be useful for troubleshooting
       # - nspanel_esphome_addon_climate_cool.yaml # activate for local climate (cooling) control
       # - nspanel_esphome_addon_climate_heat.yaml # activate for local climate (heater) control
-    refresh: 300s
+    refresh: 1d
 
 ##### My customization - Start #####
 button:

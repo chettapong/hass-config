@@ -95,21 +95,21 @@ switch:
   ##### Switch Shutdown
   - platform: shutdown
     id: switch_shutdown
-    name: "${device_name} Shutdown"
+    name: "Shutdown"
 
 
   ##### Sensor Enable Output
   - platform: output
     restore_mode: ALWAYS_ON
     output: 'output_sensor_switching'
-    name: "${device_name} Sensor Enable Output"
+    name: "Sensor Enable Output"
 
   ##### Sensor Enable Switching
   - platform: template
     id: switch_sensor_switching_enable
     optimistic: on
     restore_mode: ALWAYS_ON
-    name: "${device_name} Sensor Enable Switching"
+    name: "Sensor Enable Switching"
 
 interval:
   - interval: 5min
@@ -141,7 +141,7 @@ binary_sensor:
         # pulldown: true # comment if using ESP32
       inverted: true
     device_class: moisture
-    name: "${device_name} Rain Detection"
+    name: "Rain Detection"
 
   ##### XKC-Y25-V
   - platform: gpio
@@ -153,7 +153,7 @@ binary_sensor:
     device_class: moisture
     filters:
       - delayed_on: 10ms
-    name: "${device_name} Liquid Detection 01"
+    name: "Liquid Detection 01"
 
   - platform: gpio
     id: binary_sensor_liquid_detection_02
@@ -164,7 +164,7 @@ binary_sensor:
     device_class: moisture
     filters:
       - delayed_on: 10ms
-    name: "${device_name} Liquid Detection 02"
+    name: "Liquid Detection 02"
 
   - platform: gpio
     id: binary_sensor_liquid_detection_03
@@ -175,7 +175,7 @@ binary_sensor:
     device_class: moisture
     filters:
       - delayed_on: 10ms
-    name: "${device_name} Liquid Detection 03"
+    name: "Liquid Detection 03"
 
   - platform: gpio
     id: binary_sensor_liquid_detection_04
@@ -186,16 +186,16 @@ binary_sensor:
     device_class: moisture
     filters:
       - delayed_on: 10ms
-    name: "${device_name} Liquid Detection 04"
+    name: "Liquid Detection 04"
 
 sensor:
   ##### SHT30
   - platform: sht3xd
     id: sensor_sht3xd
     temperature:
-      name: "${device_name} Temperature"
+      name: "Temperature"
     humidity:
-      name: "${device_name} Humidity"
+      name: "Humidity"
     address: 0x44
     update_interval: never
 
@@ -203,7 +203,7 @@ sensor:
   ##### BH1750 Light Intensity
   - platform: bh1750
     id: sensor_bh1750
-    name: "${device_name} Illuminance"
+    name: "Illuminance"
     address: 0x23
     update_interval: never
 
@@ -223,14 +223,14 @@ sensor:
     #     return r
     #     # if (r > 0) return r;
     #     # return 0;
-    name: "${device_name} Rain Detection Analog"
+    name: "Rain Detection Analog"
 
 
   ##### FS300A Water Flow Meter Sensor
   - platform: pulse_counter
     id: pulse_irrigation
     pin: ${waterFlowMeterSensorPin}
-    name: "${device_name} Water Flow Meter Pulses"
+    name: "Water Flow Meter Pulses"
   
   - platform: pulse_counter
     pin: ${waterFlowMeterSensorPin}
@@ -240,10 +240,10 @@ sensor:
       # if the output frequency is 48, then the water flow: 48/5.5= 8.72(L/min)
       - lambda: |-
           return x / 5.5;
-    name: "${device_name} Water Flow Meter"
+    name: "Water Flow Meter"
 
   ##### WIFI Signal stregth
-  - name: ${device_name} RSSI
+  - name: RSSI
     platform: wifi_signal
     update_interval: 60s
 
@@ -255,7 +255,7 @@ sensor:
     accuracy_decimals: 3
     filters:
     - multiply: 2.96537
-    name: ${device_name} Solar Panel Voltage
+    name: Solar Panel Voltage
     update_interval: 60s
 
   - platform: adc
@@ -265,13 +265,13 @@ sensor:
     accuracy_decimals: 3
     filters:
     - multiply: 2.96537
-    name: ${device_name} Battery Voltage
+    name: Battery Voltage
     update_interval: 60s
-    # on_value_range:
-    #   below: 3.00
-    #   then:
-    #     - switch.turn_on:
-    #         id: switch_shutdown
+    on_value_range:
+      below: 3.00
+      then:
+        - switch.turn_on:
+            id: switch_shutdown
 
 
   #Convert the Voltage to a battery  level (%)
@@ -293,11 +293,11 @@ sensor:
           else return (x);
       - delta: 0.5 #Only send values to HA if they change
       - throttle: 30s #Limit values sent to Ha
-    name: ${device_name} Battery Level
+    name: Battery Level
 
   ##### human readable uptime sensor output to the text sensor above
   - platform: uptime
-    name: ${device_name} Uptime in Days
+    name: Uptime in Days
     id: uptime_sensor_days
     update_interval: 60s
     on_raw_value:
@@ -327,14 +327,14 @@ time:
 text_sensor:
   ##### Expose ESPHome version as sensor.
   - platform: version
-    name: $device_name Version
+    name: Version
 
   ##### Expose WiFi information as sensors.
   - platform: wifi_info
     ip_address:
-      name: $device_name IP
+      name: IP
     bssid:
-      name: $device_name BSSID
+      name: BSSID
 
   ##### human readable update text sensor from sensor:uptime
   - platform: template
